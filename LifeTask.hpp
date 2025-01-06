@@ -1,51 +1,77 @@
+#ifndef LIFE_TASK_HPP
+#define LIFE_TASK_HPP
+
+#include <iostream>
+#include <fstream>
 #include <string>
-#include <Task.hpp>
+#include <sstream>
+#include "Task.hpp"
 
 class LifeTask : public Task {
-private:
-    std::string location;
-    std::string companion;
-    std::string repeatFrequency;
-    std::string notes;
 
 public:
-    LifeTask(const std::string& name, const std::string& description, const std::string& deadline, const std::string& priority,
-             const std::string& location, const std::string& companion, const std::string& repeatFrequency, const std::string& notes)
-        : Task(name, description, deadline, priority), location(location), companion(companion), repeatFrequency(repeatFrequency), notes(notes) {}
 
-    const std::string& getLocation() const {
-        return location;
+    static const std::string FILE_PATH;
+
+    LifeTask() : Task() {}
+
+    LifeTask(
+            const std::string& description, 
+            const std::string when_to_do, 
+            const std::string& deadline, 
+            const std::string& priority)
+        : Task(description, when_to_do, deadline, priority){}
+    
+    void display() const override {
+        std::cout << "Life Task:\n";
+        std::cout << "  Description: " << description << "\n";
+        std::cout << "  When To Do: " << when_to_do << "\n";
+        if (!deadline.empty()) {
+            std::cout << "  Deadline: " << deadline << "\n";
+        }
+        if (!priority.empty()) {
+            std::cout << "  Priority: " << priority << "\n";
+        }
     }
 
-    const std::string& getCompanion() const {
-        return companion;
+    void saveToFile(std::ofstream& file) const override {
+        if (file.is_open()) {
+            file << description << "," << when_to_do << ",";
+            if (!deadline.empty()) {
+                file << deadline << ",";
+            }
+            if (!priority.empty()) {
+                file << priority << ",";
+            }
+            file << "\n";
+        }
     }
 
-    const std::string& getRepeatFrequency() const {
-        return repeatFrequency;
+    bool loadFromStream(std::istream& stream) override {
+        if (std::getline(stream, description) &&
+            std::getline(stream, when_to_do) &&
+            std::getline(stream, deadline) &&
+            std::getline(stream, priority)) {
+            return !description.empty();
+        }
+        return false;
     }
 
-    const std::string& getNotes() const {
-        return notes;
+    // Method to generate a file-compatible string representation
+    std::string toFileString() const override {
+        return description + "\n" + when_to_do + "\n" + deadline + "\n" + priority;
     }
 
-    void setLocation(const std::string& newLocation) {
-        location = newLocation;
-    }
-
-    void setCompanion(const std::string& newCompanion) {
-        companion = newCompanion;
-    }
-
-    void setRepeatFrequency(const std::string& newRepeatFrequency) {
-        repeatFrequency = newRepeatFrequency;
-    }
-
-    void setNotes(const std::string& newNotes) {
-        notes = newNotes;
-    }
-
-    void execute() override {
-
+        friend std::ostream& operator<<(std::ostream& os, const LifeTask& task) {
+        os << "Life Task:\n";
+        os << "  Description: " << task.getDescription() << "\n";
+        os << "  When To Do: " << task.getWhenToDo() << "\n";
+        os << "  Deadline: " << task.getDeadline() << "\n";
+        os << "  Priority: " << task.getPriority() << "\n";
+        return os;
     }
 };
+
+const std::string LifeTask::FILE_PATH = "life_tasks.txt";
+
+#endif
