@@ -60,7 +60,7 @@ protected:
 
 public:
 
-    Task() {}
+    Task() = default;
 
     Task(const std::string& description, const std::string when_to_do) 
         : description(description), when_to_do(when_to_do) {}
@@ -72,7 +72,7 @@ public:
             const std::string& priority)
         : description(description), when_to_do(when_to_do), deadline(deadline), priority(priority) {}
 
-    virtual ~Task() = default;
+    virtual ~Task() {}
 
     virtual void display() const = 0;
 
@@ -80,7 +80,7 @@ public:
 
     virtual bool loadFromStream(std::istream& stream) = 0;
 
-    virtual std::string toFileString() const;
+    virtual std::string toFileString() const = 0;
 
     const std::string& getDescription() const {
         return description;
