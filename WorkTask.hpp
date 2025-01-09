@@ -7,127 +7,131 @@
 #include <string>
 #include <sstream>
 #include "Task.hpp"
+using namespace am;
 
-/**
- * @class WorkTask
- * @brief Represents a work-related task, inheriting from the Task base class.
- * 
- * This class manages a work-related task, including its description, when-to-do date, deadline, 
- * priority, and the person to whom the task is assigned.
- * It provides methods to display the task, save it to a file, load it from a stream, and convert 
- * it to a string format suitable for file storage.
- */
-class WorkTask : public Task {
-private:
-    std::string assignedBy;
-
-public:
-    /** @brief The file path to save the work tasks. */
-    static const std::string FILE_PATH;
-
-    /** 
-     * @brief Default constructor for creating an empty WorkTask.
+namespace am {
+    /**
+     * @class WorkTask
+     * @brief Represents a work-related task, inheriting from the Task base class.
      * 
-     * Initializes a new work task with empty values.
+     * This class manages a work-related task, including its description, when-to-do date, deadline, 
+     * priority, and the person to whom the task is assigned.
+     * It provides methods to display the task, save it to a file, load it from a stream, and convert 
+     * it to a string format suitable for file storage.
      */
-    WorkTask()
-        : Task(), assignedBy("") {}
+    class WorkTask : public Task {
+    private:
+        std::string assignedBy;
 
-    /** 
-     * @brief Parameterized constructor for creating a WorkTask with given data.
-     * 
-     * @param description The description of the task.
-     * @param when_to_do The date when the task should be done (DD.MM.YYYY).
-     * @param deadline The deadline for the task (DD.MM.YYYY).
-     * @param priority The priority of the task (low, medium, high).
-     * @param assignedBy The person who assigned the task.
-     */
-    WorkTask(const std::string& description,
-            const std::string when_to_do,
-            const std::string& deadline,
-            const std::string& priority,
-            const std::string& assignedBy)
-        : Task(description, when_to_do, deadline, priority), assignedBy(assignedBy) {}
+    public:
+        /** @brief The file path to save the work tasks. */
+        static const std::string FILE_PATH;
 
-    /** 
-     * @brief Displays the work task details on the console.
-     */
-    void display() const override {
-        std::cout << "Work Task:\n";
-        std::cout << "  Description: " << description << "\n";
-        std::cout << "  Assignee: " << assignedBy << "\n";
-        std::cout << "  When To Do: " << when_to_do << "\n";
-        std::cout << "  Deadline: " << deadline << "\n";
-        std::cout << "  Priority: " << priority << "\n";
-    }
+        /** 
+         * @brief Default constructor for creating an empty WorkTask.
+         * 
+         * Initializes a new work task with empty values.
+         */
+        WorkTask()
+            : Task(), assignedBy("") {}
 
-    /** 
-     * @brief Saves the task data to a file.
-     * 
-     * @param file The output file stream to write the task data to.
-     */
-    void saveToFile(std::ofstream& file) const override {
-        if (file.is_open()) {
-            file << description << ", " << when_to_do << ", " << deadline << ", " << priority << ", "
-            << assignedBy << "\n";
+        /** 
+         * @brief Parameterized constructor for creating a WorkTask with given data.
+         * 
+         * @param description The description of the task.
+         * @param when_to_do The date when the task should be done (DD.MM.YYYY).
+         * @param deadline The deadline for the task (DD.MM.YYYY).
+         * @param priority The priority of the task (low, medium, high).
+         * @param assignedBy The person who assigned the task.
+         */
+        WorkTask(const std::string& description,
+                const std::string when_to_do,
+                const std::string& deadline,
+                const std::string& priority,
+                const std::string& assignedBy)
+            : Task(description, when_to_do, deadline, priority), assignedBy(assignedBy) {}
+
+        /** 
+         * @brief Displays the work task details on the console.
+         */
+        void display() const override {
+            std::cout << "Work Task:\n";
+            std::cout << "  Description: " << description << "\n";
+            std::cout << "  Assignee: " << assignedBy << "\n";
+            std::cout << "  When To Do: " << when_to_do << "\n";
+            std::cout << "  Deadline: " << deadline << "\n";
+            std::cout << "  Priority: " << priority << "\n";
         }
-    }
 
-    /** 
-     * @brief Loads the task data from a stream (e.g., file or string).
-     * 
-     * @param stream The input stream from which to read the task data.
-     * @return True if the task data is successfully loaded, false otherwise.
-     */
-    bool loadFromStream(std::istringstream& stream) override {
-        std::getline(stream, assignedBy, ',');
-        std::getline(stream, description, ',');
-        std::getline(stream, when_to_do, ',');
-        std::getline(stream, deadline, ',');
-        std::getline(stream, priority, ',');
-            
-        return !(
-            assignedBy.empty() || 
-            description.empty() || 
-            when_to_do.empty() || 
-            deadline.empty() || 
-            priority.empty());
-    }
+        /** 
+         * @brief Saves the task data to a file.
+         * 
+         * @param file The output file stream to write the task data to.
+         */
+        void saveToFile(std::ofstream& file) const override {
+            if (file.is_open()) {
+                file << description << ", " << when_to_do << ", " << deadline << ", " << priority << ", "
+                << assignedBy << "\n";
+            }
+        }
 
-    /** 
-     * @brief Converts the task data into a string for file storage.
-     * 
-     * @return A string representation of the task for file storage.
-     */
-    std::string toFileString() const override {
-        return assignedBy + ", " + description + ", " + when_to_do + ", " + deadline + ", " + priority + "\n";
-    }
+        /** 
+         * @brief Loads the task data from a stream (e.g., file or string).
+         * 
+         * @param stream The input stream from which to read the task data.
+         * @return True if the task data is successfully loaded, false otherwise.
+         */
+        bool loadFromStream(std::istringstream& stream) override {
+            std::getline(stream, assignedBy, ',');
+            std::getline(stream, description, ',');
+            std::getline(stream, when_to_do, ',');
+            std::getline(stream, deadline, ',');
+            std::getline(stream, priority, ',');
+                
+            return !(
+                assignedBy.empty() || 
+                description.empty() || 
+                when_to_do.empty() || 
+                deadline.empty() || 
+                priority.empty());
+        }
 
-    const std::string& getAssignedBy() const {
-        return assignedBy;
-    }
+        /** 
+         * @brief Converts the task data into a string for file storage.
+         * 
+         * @return A string representation of the task for file storage.
+         */
+        std::string toFileString() const override {
+            return assignedBy + ", " + description + ", " + when_to_do + ", " + deadline + ", " + priority + "\n";
+        }
 
-    void setAssignedBy(const std::string& newAssignedBy) {
-        assignedBy = newAssignedBy;
-    }
+        const std::string& getAssignedBy() const {
+            return assignedBy;
+        }
 
-    /** 
-     * @brief Overloads the output stream operator to print task details.
-     * 
-     * @param os The output stream.
-     * @param task The work task to print.
-     * @return The output stream with the task details.
-     */
-    friend std::ostream& operator<<(std::ostream& os, const WorkTask& task) {
-        os << "  Assignee: " << task.getAssignedBy() << "\n";
-        os << "  Description: " << task.getDescription() << "\n";
-        os << "  Deadline: " << task.getDeadline() << "\n";
-        os << "  Priority: " << task.getPriority() << "\n";
-        return os;
-    }
+        void setAssignedBy(const std::string& newAssignedBy) {
+            assignedBy = newAssignedBy;
+        }
 
-};
-/** @brief The file path for storing work tasks. */
-const std::string WorkTask::FILE_PATH = "work.txt";
+        /** 
+         * @brief Overloads the output stream operator to print task details.
+         * 
+         * @param os The output stream.
+         * @param task The work task to print.
+         * @return The output stream with the task details.
+         */
+        friend std::ostream& operator<<(std::ostream& os, const WorkTask& task) {
+            os << "  Assignee: " << task.getAssignedBy() << "\n";
+            os << "  Description: " << task.getDescription() << "\n";
+            os << "  Deadline: " << task.getDeadline() << "\n";
+            os << "  Priority: " << task.getPriority() << "\n";
+            return os;
+        }
+
+    };
+    /** @brief The file path for storing work tasks. */
+    const std::string WorkTask::FILE_PATH = "work.txt";
+}
+
 
 #endif

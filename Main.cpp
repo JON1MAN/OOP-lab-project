@@ -9,6 +9,7 @@
 #include <iostream>
 #include "TaskService.hpp"
 #include <string>
+using namespace am;
 
 /**
  * @brief The main function for running the task management application.
