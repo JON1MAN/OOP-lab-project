@@ -11,7 +11,7 @@
 class TaskService {
 public:
 
-        /**
+    /**
      * @brief Main loop of the To-Do List application.
      *
      * This function runs the main application loop, allowing the user to interact
@@ -81,6 +81,18 @@ public:
 
 private:
 
+    /**
+     * @brief Retrieves the current date in the format "DD.MM.YYYY".
+     *
+     * This function gets the current date by using the system's local time and formats it
+     * into a string representation with the format "day.month.year" (e.g., "09.01.2025").
+     * The formatted date string is returned as a `std::string`.
+     *
+     * @return A `std::string` containing the current date in the format "DD.MM.YYYY".
+     *
+     * @note The function uses the system's local time and relies on the `strftime` function
+     *       to format the date.
+     */
     std::string getTodayDate() {
         time_t t = time(0);
         tm* now = localtime(&t);
@@ -89,6 +101,23 @@ private:
         return std::string(buf);
     }
 
+    /**
+     * @brief Loads and displays tasks for today.
+     *
+     * This function retrieves the current date and uses it to load and display tasks
+     * for today from three categories: Study, Life, and Work. It uses the `loadTasks` 
+     * function to load tasks from corresponding file paths for each category and 
+     * then displays them using the `displayTasks` function.
+     *
+     * The function performs the following actions:
+     * - Retrieves the current date using `getTodayDate()`.
+     * - Loads tasks for today from files specific to Study, Life, and Work categories.
+     * - Displays the loaded tasks for each category with the appropriate labels.
+     *
+     * @see getTodayDate()
+     * @see loadTasks()
+     * @see displayTasks()
+     */
     void loadAndDisplayTasksForToday() {
         std::string today = getTodayDate();
         std::cout << "\nTasks for today (" << today << "):\n";
@@ -102,6 +131,32 @@ private:
         displayTasks("Work Tasks", workTasks, 32);
     }
 
+    /**
+     * @brief Loads tasks from a file for a specific date.
+     *
+     * This function loads tasks from the specified file for a given date. The tasks are filtered
+     * based on the provided date, and only those that are scheduled for today (as determined by
+     * `getTodayDate()`) are returned. It ensures that the template type `T` is a subclass of `Task`.
+     *
+     * The function performs the following steps:
+     * - Opens the specified file and reads each line.
+     * - For each line, attempts to load the task using the `loadFromStream` method.
+     * - Checks if the task is scheduled for today by comparing the date with `getTodayDate()`.
+     * - Returns a vector of tasks that are scheduled for today.
+     *
+     * @tparam T The type of task to load. It must derive from the `Task` class.
+     *
+     * @param filePath The path to the file containing the task data.
+     * @param date The date for which tasks should be loaded.
+     *
+     * @return A `std::vector<T>` containing tasks for the specified date.
+     *
+     * @throws std::ios_base::failure If there is an error opening the file.
+     *
+     * @see Task
+     * @see getTodayDate()
+     * @see loadFromStream()
+     */
     template <typename T>
     std::vector<T> loadTasks(const std::string& filePath, const std::string& date) {
             static_assert(std::is_base_of<Task, T>::value, "T must derive from Task");
@@ -128,17 +183,56 @@ private:
         return tasks;
     }
 
-    //method to trim string at left
+    /**
+     * @brief Trims leading spaces from a string.
+     *
+     * This function removes any leading spaces (whitespace characters) from the input string.
+     * It finds the first non-space character and returns a substring starting from that character.
+     * If the string contains only spaces, it returns an empty string.
+     *
+     * @param str The string to be trimmed.
+     *
+     * @return A `std::string` with leading spaces removed. If the input string consists only of spaces,
+     *         an empty string is returned.
+     *
+     * @note This function only removes spaces from the beginning of the string.
+     */
     std::string trim_left(const std::string& str) {
         size_t start = str.find_first_not_of(' ');
         return (start == std::string::npos) ? "" : str.substr(start);
     }
 
-    // Function to reset color after printing
+    /**
+     * @brief Resets the console text color to the default.
+     *
+     * This function resets the text color of the console to its default color by sending
+     * the appropriate ANSI escape sequence. It is typically used to clear any custom text
+     * color formatting applied in previous console output.
+     *
+     * @note This function assumes that the console supports ANSI escape codes for text color formatting.
+     */
     void resetColor() {
         std::cout << "\033[0m";
     }
 
+    /**
+     * @brief Displays a list of tasks with a title and color formatting.
+     *
+     * This function displays a list of tasks with a given title, applying color formatting
+     * to the title text using ANSI escape codes. If no tasks are available, it prints "No tasks".
+     * For each task, it prints its index and the task itself. The tasks are displayed in the order
+     * they appear in the provided vector.
+     *
+     * @tparam Task The type of tasks in the vector. This function works with any task type that
+     *              supports streaming (i.e., can be printed using `std::cout`).
+     *
+     * @param title The title to display above the task list.
+     * @param tasks The vector of tasks to be displayed.
+     * @param color The color code for the title text (e.g., 31 for red, 32 for green).
+     *
+     * @note The function uses ANSI escape codes to apply color formatting to the title.
+     *       The `resetColor` function is called after displaying the title to reset the text color.
+     */
     template <typename Task>
     void displayTasks(const std::string& title, const std::vector<Task>& tasks, int color) {
         std::cout << "\033[" << color << "m";
@@ -154,6 +248,15 @@ private:
         }
     }
 
+    /**
+     * @brief Adds a task for today based on user input.
+     *
+     * This function prompts the user to choose a task type (Study, Life, or Work) and creates
+     * the corresponding task for today. It retrieves today's date and then calls the appropriate
+     * function to create the selected task.
+     *
+     * @note If the user enters an invalid task type, an error message is displayed.
+     */
     void addTaskForToday() {
         std::string today = getTodayDate();
         std::cout << "Adding a task for today (" << today << ").\n";
@@ -175,6 +278,16 @@ private:
         }
     }
 
+    /**
+     * @brief Prompts the user to choose a task type (Study, Life, or Work).
+     *
+     * This function repeatedly asks the user to select a task type until a valid option (1, 2, or 3) is entered.
+     * It returns the chosen task type as an integer.
+     *
+     * @return The task type chosen by the user (1 for Study, 2 for Life, or 3 for Work).
+     *
+     * @note If the user enters an invalid choice, the function will prompt them again until a valid option is selected.
+     */
     int chooseTaskType() {
         int type = 0;
         while (type < 1 || type > 3) {
@@ -189,6 +302,24 @@ private:
         return type;
     }
 
+    /**
+     * @brief Marks a task as done by removing it from the task list.
+     *
+     * This function allows the user to select a task type (Study, Life, or Work) 
+     * and presents a list of tasks of the chosen type. The user can then choose a 
+     * task to mark as done. The selected task is removed from the corresponding 
+     * task file, and the updated list is saved back to the file.
+     * 
+     * - Prompts the user to choose a task type.
+     * - Displays a list of tasks for the selected type.
+     * - Allows the user to select a task by its number.
+     * - Removes the selected task from the file.
+     * - Displays a confirmation message once the task is marked as done.
+     *
+     * @note If no tasks are available or the user enters an invalid task number, 
+     *       an appropriate message is shown and the operation is aborted. 
+     *       The task files are updated accordingly after a task is removed.
+     */
     void markTaskAsDone() {
         int type = chooseTaskType();
 
@@ -244,6 +375,15 @@ private:
         std::cout << "Task marked as done and removed from the list.\n";
     }
 
+    /**
+     * @brief Reschedules unfinished tasks to the next day.
+     *
+     * This function retrieves today's date and calculates the next day's date.
+     * It then reschedules any unfinished tasks (Study, Life, Work) by updating 
+     * their due dates to the next day.
+     *
+     * @note After rescheduling, a confirmation message is displayed.
+     */
     void rescheduleUnfinishedTasks() {
         std::string today = getTodayDate();
         std::string nextDay = getNextDay(today);
@@ -255,6 +395,15 @@ private:
         std::cout << "Rescheduled tasks for tomorrow!" << std::endl;
     }
 
+    /**
+     * @brief Returns the next day's date.
+     *
+     * This function takes today's date as input, calculates the next day's date, 
+     * and returns it as a string in the format "dd.mm.yyyy".
+     *
+     * @param today The current date in "dd.mm.yyyy" format.
+     * @return The next day's date in "dd.mm.yyyy" format.
+     */
     std::string getNextDay(const std::string& today) {
         tm date = {};
         strptime(today.c_str(), "%d.%m.%Y", &date);
@@ -266,6 +415,18 @@ private:
         return std::string(buf);
     }
 
+    /**
+     * @brief Reschedules tasks from today to the next day.
+     *
+     * This function loads tasks from a specified file, checks if their due date is today, 
+     * and reschedules them by updating their due date to the next day. The tasks are then 
+     * saved back to the file with the updated due dates.
+     *
+     * @tparam T The type of task to reschedule (must derive from Task).
+     * @param filePath The file path where the tasks are stored.
+     * @param today The current date in "dd.mm.yyyy" format.
+     * @param nextDay The next day's date in "dd.mm.yyyy" format.
+     */
     template <typename T>
     void rescheduleTasks(const std::string& filePath, const std::string& today, const std::string& nextDay) {
         static_assert(std::is_base_of<Task, T>::value, "T must derive from Task");
@@ -294,6 +455,15 @@ private:
         }
     }
 
+    /**
+     * @brief Runs the task creation menu.
+     *
+     * This function presents a menu to the user for creating different types of tasks 
+     * (Study, Life, Work). The user selects the task type, and the corresponding task 
+     * creation function is called. The user can exit the menu by selecting option 4.
+     *
+     * @note If an invalid option is selected, the user is prompted to choose a valid option.
+     */
     void runTaskCreation() {
         short type = 0;
 
@@ -331,6 +501,16 @@ private:
         }
     }
     
+    /**
+     * @brief Creates and saves a study task.
+     *
+     * This function prompts the user to provide details for a study task, such as 
+     * description, date, deadline, priority, and subject. It then creates a 
+     * `StudyTask` object with the provided details and appends it to the appropriate 
+     * file for storage.
+     *
+     * @note If the file cannot be opened for writing, an error message is displayed.
+     */
     void createStudyTask() {
         std::string description, when_to_do, deadline, priority, subject;
 
@@ -362,6 +542,16 @@ private:
         }
     }
 
+    /**
+     * @brief Creates and saves a work task.
+     *
+     * This function prompts the user to provide details for a work task, such as 
+     * description, date, deadline, priority, and assignee. It then creates a 
+     * `WorkTask` object with the provided details and appends it to the appropriate 
+     * file for storage.
+     *
+     * @note If the file cannot be opened for writing, an error message is displayed.
+     */
     void createWorkTask() {
         std::string description, when_to_do, deadline, priority, assignedBy;
 
@@ -393,6 +583,15 @@ private:
         }
     }
 
+    /**
+     * @brief Creates and saves a life task.
+     *
+     * This function prompts the user to input details for a life task, including 
+     * description, date, deadline, and priority. It creates a `LifeTask` object 
+     * with the provided data and appends it to the relevant file for storage.
+     *
+     * @note If the file cannot be opened for writing, an error message is displayed.
+     */
     void createLifeTask() {
         std::string description, when_to_do, deadline, priority;
 
@@ -421,6 +620,18 @@ private:
         }
     }
 
+    /**
+     * @brief Creates and saves a study task for a given date.
+     *
+     * This function prompts the user to input details for a study task, including 
+     * description, deadline, priority, and subject. It creates a `StudyTask` object 
+     * with the provided data and appends it to the relevant file for storage. 
+     * The task is associated with the specified date (`when_to_do`).
+     *
+     * @param when_to_do The date the task is scheduled to be done (format: DD.MM.YYYY).
+     * 
+     * @note If the file cannot be opened for writing, an error message is displayed.
+     */
     void createStudyTask(const std::string& when_to_do) {
         std::string description, deadline, priority, subject;
 
@@ -448,6 +659,18 @@ private:
         }
     }
 
+    /**
+     * @brief Creates and saves a life task for a given date.
+     *
+     * This function prompts the user to input details for a life task, including 
+     * description, deadline, and priority. It creates a `LifeTask` object with 
+     * the provided data and appends it to the relevant file for storage. 
+     * The task is associated with the specified date (`when_to_do`).
+     *
+     * @param when_to_do The date the task is scheduled to be done (format: DD.MM.YYYY).
+     * 
+     * @note If the file cannot be opened for writing, an error message is displayed.
+     */
     void createLifeTask(const std::string& when_to_do) {
         std::string description, deadline, priority;
 
@@ -472,6 +695,18 @@ private:
         }
     }
 
+    /**
+     * @brief Creates and saves a work task for a given date.
+     *
+     * This function prompts the user to input details for a work task, including 
+     * description, deadline, priority, and assignee. It creates a `WorkTask` object 
+     * with the provided data and appends it to the relevant file for storage. 
+     * The task is associated with the specified date (`when_to_do`).
+     *
+     * @param when_to_do The date the task is scheduled to be done (format: DD.MM.YYYY).
+     * 
+     * @note If the file cannot be opened for writing, an error message is displayed.
+     */
     void createWorkTask(const std::string& when_to_do) {
         std::string description, deadline, priority, assignedBy;
 

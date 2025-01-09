@@ -6,65 +6,51 @@
 #include <sstream>
 #include <string>
 
+/**
+ * @class Task
+ * @brief Abstract base class representing a general task with a description, when-to-do date, deadline, and priority.
+ * 
+ * This class provides a blueprint for different types of tasks (e.g., study, work, life) that share common properties such as description, when-to-do date, deadline, and priority.
+ * It also includes methods for displaying, saving, and loading tasks, as well as converting them to file-friendly formats.
+ */
 class Task {
 protected:
+    /** @brief The description of the task. */
     std::string description;
+    
+    /** @brief The date when the task should be done (DD.MM.YYYY). */
     std::string when_to_do;
+
+    /** @brief The deadline for the task (DD.MM.YYYY). */
     std::string deadline;
+
+    /** @brief The priority of the task (low, medium, high). */
     std::string priority;
-
-    bool isLeapYear(int year) {
-        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
-    }
-
-    std::string incrementDate(const std::string& date) {
-
-        if (date.empty() || date.size() != 10) return date;
-
-        int day = std::stoi(date.substr(0, 2));
-        int month = std::stoi(date.substr(3, 2));
-        int year = std::stoi(date.substr(6, 4));
-
-        int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-        if (isLeapYear(year)) {
-            daysInMonth[1] = 29;
-        }
-
-        day++;
-
-        if (day > daysInMonth[month - 1]) {
-            day = 1;
-            month++;
-        }
-
-        if (month > 12) {
-            month = 1;
-            year++;
-        }
-
-        std::ostringstream oss;
-        oss << (day < 10 ? "0" : "") << day << "."
-            << (month < 10 ? "0" : "") << month << "."
-            << year;
-
-        return oss.str();
-    }
-
-    void rescheduleToNextDay() {
-        when_to_do = incrementDate(when_to_do);
-        if (!deadline.empty()) {
-            deadline = incrementDate(deadline);
-        }
-    }
 
 public:
 
+    /** 
+     * @brief Default constructor for creating an empty task.
+     */
     Task() = default;
 
+    /** 
+     * @brief Constructor for creating a task with description and when-to-do date.
+     * 
+     * @param description The description of the task.
+     * @param when_to_do The date when the task should be done (DD.MM.YYYY).
+     */
     Task(const std::string& description, const std::string when_to_do) 
         : description(description), when_to_do(when_to_do) {}
         
+    /** 
+     * @brief Constructor for creating a task with description, when-to-do date, deadline, and priority.
+     * 
+     * @param description The description of the task.
+     * @param when_to_do The date when the task should be done (DD.MM.YYYY).
+     * @param deadline The deadline for the task (DD.MM.YYYY).
+     * @param priority The priority of the task (low, medium, high).
+     */
     Task(
             const std::string& description, 
             const std::string when_to_do, 
@@ -72,14 +58,38 @@ public:
             const std::string& priority)
         : description(description), when_to_do(when_to_do), deadline(deadline), priority(priority) {}
 
+    /** 
+     * @brief Virtual destructor for cleaning up derived classes.
+     */
     virtual ~Task() {}
 
+    /** 
+     * @brief Pure virtual method to display task details.
+     * 
+     * This method must be implemented by derived classes.
+     */
     virtual void display() const = 0;
 
+    /** 
+     * @brief Pure virtual method to save task data to a file.
+     * 
+     * @param file The output file stream where task data should be saved.
+     */
     virtual void saveToFile(std::ofstream& file) const = 0;
 
+    /** 
+     * @brief Pure virtual method to load task data from a stream.
+     * 
+     * @param ss The input stream from which to load the task data.
+     * @return True if the task was successfully loaded, false otherwise.
+     */
     virtual bool loadFromStream(std::istringstream& ss) = 0;
 
+    /** 
+     * @brief Pure virtual method to convert task data to a string suitable for file storage.
+     * 
+     * @return A string representing the task's data in a file-compatible format.
+     */
     virtual std::string toFileString() const = 0;
 
     const std::string& getDescription() const {

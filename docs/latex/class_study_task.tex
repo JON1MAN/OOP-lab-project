@@ -1,0 +1,244 @@
+\doxysection{Study\+Task Class Reference}
+\hypertarget{class_study_task}{}\label{class_study_task}\index{StudyTask@{StudyTask}}
+
+
+Represents a task related to study, inheriting from the \doxylink{class_task}{Task} base class.  
+
+
+
+
+{\ttfamily \#include $<$Study\+Task.\+hpp$>$}
+
+Inheritance diagram for Study\+Task\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_study_task}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_study_task_ac1e4a2529bd2483cdf554c268fe0ae34}{Study\+Task}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor for creating an empty \doxylink{class_study_task}{Study\+Task}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_study_task_a8610739b83b82e9fd534de18603ad7ab}{Study\+Task}} (const std\+::string \&\mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}, const std\+::string \&\mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\+\_\+to\+\_\+do}}, const std\+::string \&\mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}}, const std\+::string \&\mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}}, const std\+::string \&subject)
+\begin{DoxyCompactList}\small\item\em Parameterized constructor for creating a \doxylink{class_study_task}{Study\+Task} with given data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_study_task_a751991835554308c25d4d7b71998d028}{display}} () const override
+\begin{DoxyCompactList}\small\item\em Displays the study task details on the console. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_study_task_a79a31d3fe00eee8193d20715a087aa42}{save\+To\+File}} (std\+::ofstream \&file) const override
+\begin{DoxyCompactList}\small\item\em Saves the task data to a file. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_study_task_aa77f14326a4b954fd4b785758383925d}{load\+From\+Stream}} (std\+::istringstream \&stream) override
+\begin{DoxyCompactList}\small\item\em Loads the task data from a stream (e.\+g., file or string). \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_study_task_a1487a12e9c70e9e0c17215903e77be47}{to\+File\+String}} () const override
+\begin{DoxyCompactList}\small\item\em Converts the task data into a string for file storage. \end{DoxyCompactList}\item 
+\Hypertarget{class_study_task_a12f9885d19f82558891483eb49fbf884}\label{class_study_task_a12f9885d19f82558891483eb49fbf884} 
+const std\+::string \& {\bfseries get\+Subject} () const
+\item 
+\Hypertarget{class_study_task_a3376189dc81f18175dc639789426d5c4}\label{class_study_task_a3376189dc81f18175dc639789426d5c4} 
+void {\bfseries set\+Subject} (const std\+::string \&new\+Subject)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_task}{Task}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Task} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor for creating an empty task. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_task_a969d678d9bbeb66bf4670ddb71c4bc8b}{Task}} (const std\+::string \&\mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}, const std\+::string \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\+\_\+to\+\_\+do}})
+\begin{DoxyCompactList}\small\item\em Constructor for creating a task with description and when-\/to-\/do date. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_task_a94ade09f4d3f9df3684646e155743180}{Task}} (const std\+::string \&\mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}, const std\+::string \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\+\_\+to\+\_\+do}}, const std\+::string \&\mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}}, const std\+::string \&\mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}})
+\begin{DoxyCompactList}\small\item\em Constructor for creating a task with description, when-\/to-\/do date, deadline, and priority. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Task} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for cleaning up derived classes. \end{DoxyCompactList}\item 
+const std\+::string \& {\bfseries get\+Description} () const
+\item 
+std\+::string {\bfseries get\+When\+To\+Do} () const
+\item 
+const std\+::string \& {\bfseries get\+Deadline} () const
+\item 
+const std\+::string \& {\bfseries get\+Priority} () const
+\item 
+void {\bfseries set\+Description} (const std\+::string \&new\+Description)
+\item 
+void {\bfseries set\+When\+To\+Do} (const std\+::string \&new\+When\+To\+Do)
+\item 
+void {\bfseries set\+Deadline} (const std\+::string \&new\+Deadline)
+\item 
+void {\bfseries set\+Priority} (const std\+::string \&new\+Priority)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const std\+::string \mbox{\hyperlink{class_study_task_a83dada0382985533147a3e9e9c0da860}{FILE\+\_\+\+PATH}} = "{}study.\+txt"{}
+\begin{DoxyCompactList}\small\item\em The file path to save the study tasks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \mbox{\hyperlink{class_study_task_a44a844d476b55087767c8dd4d3e39e39}{operator$<$$<$}} (std\+::ostream \&os, const \mbox{\hyperlink{class_study_task}{Study\+Task}} \&task)
+\begin{DoxyCompactList}\small\item\em Overloads the output stream operator to print task details. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_task}{Task}}}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string {\bfseries description}
+\begin{DoxyCompactList}\small\item\em The description of the task. \end{DoxyCompactList}\item 
+std\+::string {\bfseries when\+\_\+to\+\_\+do}
+\begin{DoxyCompactList}\small\item\em The date when the task should be done (DD.\+MM.\+YYYY). \end{DoxyCompactList}\item 
+std\+::string {\bfseries deadline}
+\begin{DoxyCompactList}\small\item\em The deadline for the task (DD.\+MM.\+YYYY). \end{DoxyCompactList}\item 
+std\+::string {\bfseries priority}
+\begin{DoxyCompactList}\small\item\em The priority of the task (low, medium, high). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a task related to study, inheriting from the \doxylink{class_task}{Task} base class. 
+
+This class manages all the necessary data for a study task, including subject, description, when-\/to-\/do date, deadline, and priority. It provides methods to display, save, load, and convert the task data to a string format for file storage. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_study_task_ac1e4a2529bd2483cdf554c268fe0ae34}\index{StudyTask@{StudyTask}!StudyTask@{StudyTask}}
+\index{StudyTask@{StudyTask}!StudyTask@{StudyTask}}
+\doxysubsubsection{\texorpdfstring{StudyTask()}{StudyTask()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_study_task_ac1e4a2529bd2483cdf554c268fe0ae34} 
+Study\+Task\+::\+Study\+Task (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default constructor for creating an empty \doxylink{class_study_task}{Study\+Task}. 
+
+Initializes a new study task with empty values. \Hypertarget{class_study_task_a8610739b83b82e9fd534de18603ad7ab}\index{StudyTask@{StudyTask}!StudyTask@{StudyTask}}
+\index{StudyTask@{StudyTask}!StudyTask@{StudyTask}}
+\doxysubsubsection{\texorpdfstring{StudyTask()}{StudyTask()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_study_task_a8610739b83b82e9fd534de18603ad7ab} 
+Study\+Task\+::\+Study\+Task (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description}{, }\item[{const std\+::string \&}]{when\+\_\+to\+\_\+do}{, }\item[{const std\+::string \&}]{deadline}{, }\item[{const std\+::string \&}]{priority}{, }\item[{const std\+::string \&}]{subject}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Parameterized constructor for creating a \doxylink{class_study_task}{Study\+Task} with given data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em description} & The description of the task. \\
+\hline
+{\em when\+\_\+to\+\_\+do} & The date when the task should be done (DD.\+MM.\+YYYY). \\
+\hline
+{\em deadline} & The deadline for the task (DD.\+MM.\+YYYY). \\
+\hline
+{\em priority} & The priority of the task (low, medium, high). \\
+\hline
+{\em subject} & The subject of the study task. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_study_task_a751991835554308c25d4d7b71998d028}\index{StudyTask@{StudyTask}!display@{display}}
+\index{display@{display}!StudyTask@{StudyTask}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily \label{class_study_task_a751991835554308c25d4d7b71998d028} 
+void Study\+Task\+::display (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Displays the study task details on the console. 
+
+
+
+Implements \mbox{\hyperlink{class_task_af44de279e920f0a26ef09897c65016c7}{Task}}.
+
+\Hypertarget{class_study_task_aa77f14326a4b954fd4b785758383925d}\index{StudyTask@{StudyTask}!loadFromStream@{loadFromStream}}
+\index{loadFromStream@{loadFromStream}!StudyTask@{StudyTask}}
+\doxysubsubsection{\texorpdfstring{loadFromStream()}{loadFromStream()}}
+{\footnotesize\ttfamily \label{class_study_task_aa77f14326a4b954fd4b785758383925d} 
+bool Study\+Task\+::load\+From\+Stream (\begin{DoxyParamCaption}\item[{std\+::istringstream \&}]{stream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Loads the task data from a stream (e.\+g., file or string). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em stream} & The input stream from which to read the task data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the task data is successfully loaded, false otherwise. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_task_a7953817ca4baf59276c1086cf6013c6b}{Task}}.
+
+\Hypertarget{class_study_task_a79a31d3fe00eee8193d20715a087aa42}\index{StudyTask@{StudyTask}!saveToFile@{saveToFile}}
+\index{saveToFile@{saveToFile}!StudyTask@{StudyTask}}
+\doxysubsubsection{\texorpdfstring{saveToFile()}{saveToFile()}}
+{\footnotesize\ttfamily \label{class_study_task_a79a31d3fe00eee8193d20715a087aa42} 
+void Study\+Task\+::save\+To\+File (\begin{DoxyParamCaption}\item[{std\+::ofstream \&}]{file}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Saves the task data to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & The output file stream to write the task data to. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_task_a49e65ce094ae0ffa66b32b10c10a0c4f}{Task}}.
+
+\Hypertarget{class_study_task_a1487a12e9c70e9e0c17215903e77be47}\index{StudyTask@{StudyTask}!toFileString@{toFileString}}
+\index{toFileString@{toFileString}!StudyTask@{StudyTask}}
+\doxysubsubsection{\texorpdfstring{toFileString()}{toFileString()}}
+{\footnotesize\ttfamily \label{class_study_task_a1487a12e9c70e9e0c17215903e77be47} 
+std\+::string Study\+Task\+::to\+File\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Converts the task data into a string for file storage. 
+
+\begin{DoxyReturn}{Returns}
+A string representation of the task for file storage. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_task_abc54b829b0faed6d37d4dbe340d6c490}{Task}}.
+
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_study_task_a44a844d476b55087767c8dd4d3e39e39}\index{StudyTask@{StudyTask}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!StudyTask@{StudyTask}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily \label{class_study_task_a44a844d476b55087767c8dd4d3e39e39} 
+std\+::ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os}{, }\item[{const \mbox{\hyperlink{class_study_task}{Study\+Task}} \&}]{task}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Overloads the output stream operator to print task details. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em os} & The output stream. \\
+\hline
+{\em task} & The study task to print. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The output stream with the task details. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_study_task_a83dada0382985533147a3e9e9c0da860}\index{StudyTask@{StudyTask}!FILE\_PATH@{FILE\_PATH}}
+\index{FILE\_PATH@{FILE\_PATH}!StudyTask@{StudyTask}}
+\doxysubsubsection{\texorpdfstring{FILE\_PATH}{FILE\_PATH}}
+{\footnotesize\ttfamily \label{class_study_task_a83dada0382985533147a3e9e9c0da860} 
+const std\+::string Study\+Task\+::\+FILE\+\_\+\+PATH = "{}study.\+txt"{}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The file path to save the study tasks. 
+
+The file path for storing study tasks. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Study\+Task.\+hpp\end{DoxyCompactItemize}

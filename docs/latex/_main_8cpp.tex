@@ -1,0 +1,38 @@
+\doxysection{Main.\+cpp File Reference}
+\hypertarget{_main_8cpp}{}\label{_main_8cpp}\index{Main.cpp@{Main.cpp}}
+
+
+Main entry point for the task management application.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include "{}Task\+Service.\+hpp"{}}\newline
+{\ttfamily \#include $<$string$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em The main function for running the task management application. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main entry point for the task management application. 
+
+This file contains the {\ttfamily main} function, which is the entry point of the task management application. It initializes the {\ttfamily \doxylink{class_task_service}{Task\+Service}} class and starts the application by calling its {\ttfamily run\+Application} method. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{Main.cpp@{Main.cpp}!main@{main}}
+\index{main@{main}!Main.cpp@{Main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{_main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+The main function for running the task management application. 
+
+This function creates an instance of {\ttfamily \doxylink{class_task_service}{Task\+Service}} and invokes the {\ttfamily run\+Application} method to start the task management system. The program will continue running until the user decides to exit.
+
+\begin{DoxyReturn}{Returns}
+int Exit status of the program. Returns 0 if the program executes successfully. 
+\end{DoxyReturn}

@@ -1,0 +1,55 @@
+\doxysection{Task\+Service Class Reference}
+\hypertarget{class_task_service}{}\label{class_task_service}\index{TaskService@{TaskService}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_task_service_a80eeb04bd5e8e2a46f9c8d3b26e01d94}{run\+Application}} ()
+\begin{DoxyCompactList}\small\item\em Main loop of the To-\/\+Do List application. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_task_service_a80eeb04bd5e8e2a46f9c8d3b26e01d94}\index{TaskService@{TaskService}!runApplication@{runApplication}}
+\index{runApplication@{runApplication}!TaskService@{TaskService}}
+\doxysubsubsection{\texorpdfstring{runApplication()}{runApplication()}}
+{\footnotesize\ttfamily \label{class_task_service_a80eeb04bd5e8e2a46f9c8d3b26e01d94} 
+void Task\+Service\+::run\+Application (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Main loop of the To-\/\+Do List application. 
+
+This function runs the main application loop, allowing the user to interact with the To-\/\+Do List application through a set of menu options. The user can view tasks for the current day, add new tasks, mark tasks as done, reschedule unfinished tasks, or exit the application.
+
+The function operates in an infinite loop, presenting the user with a menu of options. The user selects an option by entering a number corresponding to the desired action\+:
+\begin{DoxyItemize}
+\item {\bfseries{1}}\+: Add a new task for today.
+\item {\bfseries{2}}\+: Add a task with a custom date.
+\item {\bfseries{3}}\+: Mark a task as completed.
+\item {\bfseries{4}}\+: Reschedule unfinished tasks from today to the next day.
+\item {\bfseries{5}}\+: Exit the application.
+\end{DoxyItemize}
+
+Depending on the user\textquotesingle{}s choice, the function invokes corresponding helper functions to perform the requested actions.
+
+
+\begin{DoxyItemize}
+\item {\bfseries{Invalid Input Handling}}\+: If the user enters an invalid choice, a message is displayed, and the menu is shown again.
+\item {\bfseries{Exit}}\+: Choosing option 5 exits the loop and terminates the application.
+\end{DoxyItemize}
+
+\begin{DoxySeeAlso}{See also}
+load\+And\+Display\+Tasks\+For\+Today() 
+
+add\+Task\+For\+Today() 
+
+run\+Task\+Creation() 
+
+mark\+Task\+As\+Done() 
+
+reschedule\+Unfinished\+Tasks() 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Task\+Service.\+hpp\end{DoxyCompactItemize}

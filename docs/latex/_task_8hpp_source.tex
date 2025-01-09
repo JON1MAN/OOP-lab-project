@@ -1,0 +1,81 @@
+\doxysection{Task.\+hpp}
+\hypertarget{_task_8hpp_source}{}\label{_task_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TASK\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TASK\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_task_a7c37a4dd66b39f1168b7f4df05eeeb69}{Task}}\ \{}
+\DoxyCodeLine{00017\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00019\ \ \ \ \ std::string\ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}};}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ std::string\ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00025\ \ \ \ \ std::string\ \mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00028\ \ \ \ \ std::string\ \mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{class_task_a7c37a4dd66b39f1168b7f4df05eeeb69}{Task}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_task_a969d678d9bbeb66bf4670ddb71c4bc8b}{Task}}(\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}},\ \textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}})\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}(\mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}),\ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}}(\mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}})\ \{\}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_task_a94ade09f4d3f9df3684646e155743180}{Task}}(}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}},\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}},\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}},\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}})}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}(\mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}),\ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}}(\mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}}),\ \mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}}(\mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}}),\ \mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}}(\mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}})\ \{\}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_task_a7bff79cc05fa4511c72048d33591503b}{\string~Task}}()\ \{\}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_task_af44de279e920f0a26ef09897c65016c7}{display}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_task_a49e65ce094ae0ffa66b32b10c10a0c4f}{saveToFile}}(std::ofstream\&\ file)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_task_a7953817ca4baf59276c1086cf6013c6b}{loadFromStream}}(std::istringstream\&\ ss)\ =\ 0;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keyword}{virtual}\ std::string\ \mbox{\hyperlink{class_task_abc54b829b0faed6d37d4dbe340d6c490}{toFileString}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ getDescription()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}};}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ std::string\ getWhenToDo()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}};\ }
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ getDeadline()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}};}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ getPriority()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}};}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ setDescription(\textcolor{keyword}{const}\ std::string\&\ newDescription)\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}\ =\ newDescription;}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{void}\ setWhenToDo(\textcolor{keyword}{const}\ std::string\&\ newWhenToDo)\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}}\ =\ newWhenToDo;}
+\DoxyCodeLine{00117\ \ \ \ \ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ setDeadline(\textcolor{keyword}{const}\ std::string\&\ newDeadline)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}}\ =\ newDeadline;}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ setPriority(\textcolor{keyword}{const}\ std::string\&\ newPriority)\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}}\ =\ newPriority;}
+\DoxyCodeLine{00125\ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \};}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

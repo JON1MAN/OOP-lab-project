@@ -1,0 +1,478 @@
+\doxysection{Task\+Service.\+hpp}
+\hypertarget{_task_service_8hpp_source}{}\label{_task_service_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TASK\_SERVICE\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TASK\_SERVICE\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}StudyTask.hpp"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}WorkTask.hpp"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}LifeTask.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_task_service}{TaskService}}\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_task_service_a80eeb04bd5e8e2a46f9c8d3b26e01d94}{runApplication}}()\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ choice\ =\ 0;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ loadAndDisplayTasksForToday();}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nOptions:"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}1\ -\/\ Add\ task\ for\ today"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}2\ -\/\ Add\ task\ (custom\ date)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}3\ -\/\ Mark\ task\ as\ done"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}4\ -\/\ Reschedule\ tasks\ from\ today\ to\ next\ day"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}5\ -\/\ Exit"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Choose\ an\ option:\ "{}};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ std::cin\ >>\ choice;}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (choice)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ addTaskForToday();}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ runTaskCreation();}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ markTaskAsDone();}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rescheduleUnfinishedTasks();}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Exiting\ application..."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Invalid\ option.\ Please\ choose\ between\ 1\ and\ 4."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00096\ \ \ \ \ std::string\ getTodayDate()\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ time\_t\ t\ =\ time(0);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ tm*\ now\ =\ localtime(\&t);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buf[11];}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ strftime(buf,\ \textcolor{keyword}{sizeof}(buf),\ \textcolor{stringliteral}{"{}\%d.\%m.\%Y"{}},\ now);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::string(buf);}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{void}\ loadAndDisplayTasksForToday()\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ std::string\ today\ =\ getTodayDate();}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nTasks\ for\ today\ ("{}}\ <<\ today\ <<\ \textcolor{stringliteral}{"{}):\(\backslash\)n"{}};}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ std::vector<StudyTask>\ studyTasks\ =\ loadTasks<StudyTask>(\mbox{\hyperlink{class_study_task_a83dada0382985533147a3e9e9c0da860}{StudyTask::FILE\_PATH}},\ today);}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ std::vector<LifeTask>\ lifeTasks\ =\ loadTasks<LifeTask>(\mbox{\hyperlink{class_life_task_ad55d0b62263813918f9498b709e52d97}{LifeTask::FILE\_PATH}},\ today);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ std::vector<WorkTask>\ workTasks\ =\ loadTasks<WorkTask>(\mbox{\hyperlink{class_work_task_ac04c765cdda4576c9c38d3ea7150ac6b}{WorkTask::FILE\_PATH}},\ today);}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ displayTasks(\textcolor{stringliteral}{"{}Study\ Tasks"{}},\ studyTasks,\ 31);}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ displayTasks(\textcolor{stringliteral}{"{}Life\ Tasks"{}},\ lifeTasks,\ 33);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ displayTasks(\textcolor{stringliteral}{"{}Work\ Tasks"{}},\ workTasks,\ 32);}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00161\ \ \ \ \ std::vector<T>\ loadTasks(\textcolor{keyword}{const}\ std::string\&\ filePath,\ \textcolor{keyword}{const}\ std::string\&\ date)\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::is\_base\_of<Task,\ T>::value,\ \textcolor{stringliteral}{"{}T\ must\ derive\ from\ Task"{}});}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ std::ifstream\ file(filePath);}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<T>\ tasks;}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Could\ not\ open\ file:\ "{}}\ <<\ filePath\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tasks;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\ task;}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::istringstream\ ss(line);}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (task.loadFromStream(ss)\ \&\&\ trim\_left(task.getWhenToDo())\ ==\ getTodayDate())\ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tasks.push\_back(task);}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tasks;}
+\DoxyCodeLine{00184\ \ \ \ \ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00200\ \ \ \ \ std::string\ trim\_left(\textcolor{keyword}{const}\ std::string\&\ str)\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ start\ =\ str.find\_first\_not\_of(\textcolor{charliteral}{'\ '});}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (start\ ==\ std::string::npos)\ ?\ \textcolor{stringliteral}{"{}"{}}\ :\ str.substr(start);}
+\DoxyCodeLine{00203\ \ \ \ \ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordtype}{void}\ resetColor()\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)033[0m"{}};}
+\DoxyCodeLine{00216\ \ \ \ \ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Task>}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordtype}{void}\ displayTasks(\textcolor{keyword}{const}\ std::string\&\ title,\ \textcolor{keyword}{const}\ std::vector<Task>\&\ tasks,\ \textcolor{keywordtype}{int}\ color)\ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)033["{}}\ <<\ color\ <<\ \textcolor{stringliteral}{"{}m"{}};}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/\ "{}}\ <<\ title\ <<\ \textcolor{stringliteral}{"{}\ -\/-\/-\/-\/-\/\(\backslash\)n\(\backslash\)n"{}};}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ resetColor();}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (tasks.empty())\ \{}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}No\ tasks.\(\backslash\)n"{}};}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ tasks.size();\ ++i)\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ i\ +\ 1\ <<\ \textcolor{stringliteral}{"{}.\ "{}}\ <<\ tasks[i]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00249\ \ \ \ \ \}}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{keywordtype}{void}\ addTaskForToday()\ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ std::string\ today\ =\ getTodayDate();}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Adding\ a\ task\ for\ today\ ("{}}\ <<\ today\ <<\ \textcolor{stringliteral}{"{}).\(\backslash\)n"{}};}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ type\ =\ chooseTaskType();}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (type)\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ createStudyTask(today);}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ createLifeTask(today);}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ createWorkTask(today);}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Invalid\ task\ type.\ Please\ choose\ 1,\ 2,\ or\ 3.\(\backslash\)n"{}};}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00279\ \ \ \ \ \}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordtype}{int}\ chooseTaskType()\ \{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ type\ =\ 0;}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (type\ <\ 1\ ||\ type\ >\ 3)\ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}What\ type\ of\ task?\(\backslash\)n"{}};}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}1\ -\/\ Study\(\backslash\)n2\ -\/\ Life\(\backslash\)n3\ -\/\ Work\(\backslash\)n"{}};}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Choose\ an\ option:\ "{}};}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ std::cin\ >>\ type;}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ <\ 1\ \&\&\ type\ >\ 3)\ \{}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Invalid\ choice.\ Please\ select\ 1,\ 2,\ or\ 3.\(\backslash\)n"{}};}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ type;}
+\DoxyCodeLine{00303\ \ \ \ \ \}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{keywordtype}{void}\ markTaskAsDone()\ \{}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ type\ =\ chooseTaskType();}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ std::string\ filePath;}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (type)\ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ filePath\ =\ \mbox{\hyperlink{class_study_task_a83dada0382985533147a3e9e9c0da860}{StudyTask::FILE\_PATH}};}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ filePath\ =\ \mbox{\hyperlink{class_life_task_ad55d0b62263813918f9498b709e52d97}{LifeTask::FILE\_PATH}};}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ filePath\ =\ \mbox{\hyperlink{class_work_task_ac04c765cdda4576c9c38d3ea7150ac6b}{WorkTask::FILE\_PATH}};}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ std::ifstream\ file(filePath);}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!file)\ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}No\ tasks\ of\ this\ type.\(\backslash\)n"{}};}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ std::vector<std::string>\ lines;}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ lines.push\_back(line);}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ file.close();}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lines.empty())\ \{}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}No\ tasks\ to\ mark\ as\ done.\(\backslash\)n"{}};}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Select\ the\ task\ to\ mark\ as\ done:\(\backslash\)n"{}};}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ lines.size();\ ++i)\ \{}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ i\ +\ 1\ <<\ \textcolor{stringliteral}{"{}.\ "{}}\ <<\ lines[i]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ taskNumber;}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ task\ number:\ "{}};}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ std::cin\ >>\ taskNumber;}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (taskNumber\ >\ 0\ \&\&\ taskNumber\ <=\ lines.size())\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Invalid\ task\ number.\(\backslash\)n"{}};}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ lines.erase(lines.begin()\ +\ taskNumber\ -\/\ 1);}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ std::ofstream\ outFile(filePath);}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ l\ :\ lines)\ \{}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ outFile\ <<\ l\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Task\ marked\ as\ done\ and\ removed\ from\ the\ list.\(\backslash\)n"{}};}
+\DoxyCodeLine{00376\ \ \ \ \ \}}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{keywordtype}{void}\ rescheduleUnfinishedTasks()\ \{}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ std::string\ today\ =\ getTodayDate();}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ std::string\ nextDay\ =\ getNextDay(today);}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ rescheduleTasks<StudyTask>(\mbox{\hyperlink{class_study_task_a83dada0382985533147a3e9e9c0da860}{StudyTask::FILE\_PATH}},\ today,\ nextDay);}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ rescheduleTasks<LifeTask>(\mbox{\hyperlink{class_life_task_ad55d0b62263813918f9498b709e52d97}{LifeTask::FILE\_PATH}},\ today,\ nextDay);}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ rescheduleTasks<WorkTask>(\mbox{\hyperlink{class_work_task_ac04c765cdda4576c9c38d3ea7150ac6b}{WorkTask::FILE\_PATH}},\ today,\ nextDay);}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Rescheduled\ tasks\ for\ tomorrow!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00396\ \ \ \ \ \}}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00407\ \ \ \ \ std::string\ getNextDay(\textcolor{keyword}{const}\ std::string\&\ today)\ \{}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ tm\ date\ =\ \{\};}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ strptime(today.c\_str(),\ \textcolor{stringliteral}{"{}\%d.\%m.\%Y"{}},\ \&date);}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ time\_t\ t\ =\ mktime(\&date)\ +\ 86400;}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ tm*\ nextDay\ =\ localtime(\&t);}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ buf[11];}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ strftime(buf,\ \textcolor{keyword}{sizeof}(buf),\ \textcolor{stringliteral}{"{}\%d.\%m.\%Y"{}},\ nextDay);}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::string(buf);}
+\DoxyCodeLine{00416\ \ \ \ \ \}}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00431\ \ \ \ \ \textcolor{keywordtype}{void}\ rescheduleTasks(\textcolor{keyword}{const}\ std::string\&\ filePath,\ \textcolor{keyword}{const}\ std::string\&\ today,\ \textcolor{keyword}{const}\ std::string\&\ nextDay)\ \{}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(std::is\_base\_of<Task,\ T>::value,\ \textcolor{stringliteral}{"{}T\ must\ derive\ from\ Task"{}});}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ std::ifstream\ file(filePath);}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ std::vector<T>\ tasks;}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Could\ not\ open\ file:\ "{}}\ <<\ filePath\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00440\ }
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ T\ task;}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ std::istringstream\ ss(line);}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (task.loadFromStream(ss)\ \&\&\ trim\_left(task.getWhenToDo())\ ==\ today)\ \{}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ task.setWhenToDo(nextDay);}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ tasks.push\_back(task);}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ file.close();}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ std::ofstream\ outFile(filePath);}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ task\ :\ tasks)\ \{}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ outFile\ <<\ task.toFileString();}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00456\ \ \ \ \ \}}
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00467\ \ \ \ \ \textcolor{keywordtype}{void}\ runTaskCreation()\ \{}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{short}\ type\ =\ 0;}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nWhat\ type\ of\ task?"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}1\ -\/\ Study"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}2\ -\/\ Life"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}3\ -\/\ Work"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}4\ -\/\ Exit"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Choose\ an\ option:\ "{}};}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ std::cin\ >>\ type;}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ ==\ 4)\ \{}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Exiting\ task\ creation..."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ <\ 1\ ||\ type\ >\ 4)\ \{}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Invalid\ option.\ Please\ choose\ between\ 1\ and\ 4."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (type)\ \{}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ createStudyTask();}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ createLifeTask();}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ createWorkTask();}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00502\ \ \ \ \ \}}
+\DoxyCodeLine{00503\ \ \ \ \ }
+\DoxyCodeLine{00514\ \ \ \ \ \textcolor{keywordtype}{void}\ createStudyTask()\ \{}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ std::string\ description,\ when\_to\_do,\ deadline,\ priority,\ subject;}
+\DoxyCodeLine{00516\ }
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Provide\ description:\ "{}};}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ std::cin.ignore();}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ description);}
+\DoxyCodeLine{00520\ }
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}When\ do\ you\ want\ to\ do\ it?\ (DD.MM.YYYY):\ "{}};}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ when\_to\_do);}
+\DoxyCodeLine{00523\ }
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}What\ is\ your\ deadline?\ (DD.MM.YYYY):\ "{}};}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ deadline);}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}What\ is\ the\ priority?\ (low,\ medium,\ high):\ "{}};}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ priority);}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}What\ subject?\ "{}};}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ subject);}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ StudyTask\ studyTask(description,\ when\_to\_do,\ deadline,\ priority,\ subject);}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ std::ofstream\ outFile(\mbox{\hyperlink{class_study_task_a83dada0382985533147a3e9e9c0da860}{StudyTask::FILE\_PATH}},\ std::ios::app);}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (outFile.is\_open())\ \{}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \ \ \ \ outFile\ <<\ studyTask.toFileString();}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ \ \ \ outFile.close();}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Study\ task\ added\ to\ file\ for:\ "{}}\ <<\ when\_to\_do\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Unable\ to\ open\ file\ for\ writing.\(\backslash\)n"{}};}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00543\ \ \ \ \ \}}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00555\ \ \ \ \ \textcolor{keywordtype}{void}\ createWorkTask()\ \{}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ std::string\ description,\ when\_to\_do,\ deadline,\ priority,\ assignedBy;}
+\DoxyCodeLine{00557\ }
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Provide\ description:\ "{}};}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ std::cin.ignore();}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ description);}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}When\ do\ you\ want\ to\ do\ it?\ (DD.MM.YYYY):\ "{}};}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ when\_to\_do);}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}What\ is\ your\ deadline?\ (DD.MM.YYYY):\ "{}};}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ deadline);}
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}What\ is\ the\ priority?\ (low,\ medium,\ high):\ "{}};}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ priority);}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Who\ is\ the\ assignee?\ "{}};}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ assignedBy);}
+\DoxyCodeLine{00573\ }
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ WorkTask\ workTask(description,\ when\_to\_do,\ deadline,\ priority,\ assignedBy);}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ std::ofstream\ outFile(\mbox{\hyperlink{class_work_task_ac04c765cdda4576c9c38d3ea7150ac6b}{WorkTask::FILE\_PATH}},\ std::ios::app);}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (outFile.is\_open())\ \{}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ outFile\ <<\ workTask.toFileString();}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ outFile.close();}
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Work\ task\ added\ to\ file\ for\ :\ "{}}\ <<\ when\_to\_do\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Unable\ to\ open\ file\ for\ writing.\(\backslash\)n"{}};}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00584\ \ \ \ \ \}}
+\DoxyCodeLine{00585\ }
+\DoxyCodeLine{00595\ \ \ \ \ \textcolor{keywordtype}{void}\ createLifeTask()\ \{}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ std::string\ description,\ when\_to\_do,\ deadline,\ priority;}
+\DoxyCodeLine{00597\ }
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Provide\ description:\ "{}};}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ std::cin.ignore();}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ description);}
+\DoxyCodeLine{00601\ }
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}When\ do\ you\ want\ to\ do\ it?\ (DD.MM.YYYY):\ "{}};}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ when\_to\_do);}
+\DoxyCodeLine{00604\ }
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}What\ is\ your\ deadline?\ (DD.MM.YYYY):\ "{}};}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ deadline);}
+\DoxyCodeLine{00607\ }
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}What\ is\ the\ priority?\ (low,\ medium,\ high):\ "{}};}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ priority);}
+\DoxyCodeLine{00610\ }
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ LifeTask\ lifeTask(description,\ when\_to\_do,\ deadline,\ priority);}
+\DoxyCodeLine{00612\ }
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ std::ofstream\ outFile(\mbox{\hyperlink{class_life_task_ad55d0b62263813918f9498b709e52d97}{LifeTask::FILE\_PATH}},\ std::ios::app);}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (outFile.is\_open())\ \{}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \ \ \ \ outFile\ <<\ lifeTask.toFileString();}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \ \ \ \ outFile.close();}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Life\ task\ added\ to\ file\ for:\ "{}}\ <<\ when\_to\_do\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Unable\ to\ open\ file\ for\ writing.\(\backslash\)n"{}};}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00621\ \ \ \ \ \}}
+\DoxyCodeLine{00622\ }
+\DoxyCodeLine{00635\ \ \ \ \ \textcolor{keywordtype}{void}\ createStudyTask(\textcolor{keyword}{const}\ std::string\&\ when\_to\_do)\ \{}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ std::string\ description,\ deadline,\ priority,\ subject;}
+\DoxyCodeLine{00637\ }
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ task\ description:\ "{}};}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ std::cin.ignore();}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ description);}
+\DoxyCodeLine{00641\ }
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ deadline\ date\ (DD.MM.YYYY):\ "{}};}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ deadline);}
+\DoxyCodeLine{00644\ }
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ priority\ (low,\ medium,\ high):\ "{}};}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ priority);}
+\DoxyCodeLine{00647\ }
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}What\ subject?\ "{}};}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ subject);}
+\DoxyCodeLine{00650\ }
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \ \ StudyTask\ studyTask(description,\ when\_to\_do,\ deadline,\ priority,\ subject);}
+\DoxyCodeLine{00652\ \ \ \ \ \ \ \ \ std::ofstream\ outFile(\mbox{\hyperlink{class_study_task_a83dada0382985533147a3e9e9c0da860}{StudyTask::FILE\_PATH}},\ std::ios::app);}
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (outFile.is\_open())\ \{}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ \ \ \ \ outFile\ <<\ studyTask.toFileString();}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ \ \ \ \ outFile.close();}
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Study\ task\ added\ to\ file\ for\ today:\ "{}}\ <<\ when\_to\_do\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Unable\ to\ open\ file\ for\ writing.\(\backslash\)n"{}};}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00660\ \ \ \ \ \}}
+\DoxyCodeLine{00661\ }
+\DoxyCodeLine{00674\ \ \ \ \ \textcolor{keywordtype}{void}\ createLifeTask(\textcolor{keyword}{const}\ std::string\&\ when\_to\_do)\ \{}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ std::string\ description,\ deadline,\ priority;}
+\DoxyCodeLine{00676\ }
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ task\ description:\ "{}};}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ std::cin.ignore();}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ description);}
+\DoxyCodeLine{00680\ }
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ deadline\ date\ (DD.MM.YYYY):\ "{}};}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ deadline);}
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ priority\ (low,\ medium,\ high):\ "{}};}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ priority);}
+\DoxyCodeLine{00686\ }
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ LifeTask\ lifeTask(description,\ when\_to\_do,\ deadline,\ priority);}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ std::ofstream\ outFile(\mbox{\hyperlink{class_life_task_ad55d0b62263813918f9498b709e52d97}{LifeTask::FILE\_PATH}},\ std::ios::app);}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (outFile.is\_open())\ \{}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \ \ \ \ outFile\ <<\ lifeTask.toFileString();}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ \ \ \ \ outFile.close();}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Life\ task\ added\ to\ file\ for\ today:\ "{}}\ <<\ when\_to\_do\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Unable\ to\ open\ file\ for\ writing.\(\backslash\)n"{}};}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00696\ \ \ \ \ \}}
+\DoxyCodeLine{00697\ }
+\DoxyCodeLine{00710\ \ \ \ \ \textcolor{keywordtype}{void}\ createWorkTask(\textcolor{keyword}{const}\ std::string\&\ when\_to\_do)\ \{}
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ \ std::string\ description,\ deadline,\ priority,\ assignedBy;}
+\DoxyCodeLine{00712\ }
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ task\ description:\ "{}};}
+\DoxyCodeLine{00714\ \ \ \ \ \ \ \ \ std::cin.ignore();}
+\DoxyCodeLine{00715\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ description);}
+\DoxyCodeLine{00716\ }
+\DoxyCodeLine{00717\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ deadline\ date\ (DD.MM.YYYY):\ "{}};}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ deadline);}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00720\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Enter\ priority\ (low,\ medium,\ high):\ "{}};}
+\DoxyCodeLine{00721\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ priority);}
+\DoxyCodeLine{00722\ }
+\DoxyCodeLine{00723\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Who\ is\ the\ assignee?\ "{}};}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ std::getline(std::cin,\ assignedBy);}
+\DoxyCodeLine{00725\ }
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ WorkTask\ workTask(description,\ when\_to\_do,\ deadline,\ priority,\ assignedBy);}
+\DoxyCodeLine{00727\ }
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ std::ofstream\ outFile(\mbox{\hyperlink{class_work_task_ac04c765cdda4576c9c38d3ea7150ac6b}{WorkTask::FILE\_PATH}},\ std::ios::app);}
+\DoxyCodeLine{00729\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (outFile.is\_open())\ \{}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \ \ \ \ outFile\ <<\ workTask.toFileString();}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \ \ \ \ outFile.close();}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Work\ task\ added\ to\ file\ for\ today:\ "{}}\ <<\ when\_to\_do\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Unable\ to\ open\ file\ for\ writing.\(\backslash\)n"{}};}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00736\ \ \ \ \ \}}
+\DoxyCodeLine{00737\ }
+\DoxyCodeLine{00738\ \};}
+\DoxyCodeLine{00739\ }
+\DoxyCodeLine{00740\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

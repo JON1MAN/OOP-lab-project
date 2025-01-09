@@ -1,0 +1,87 @@
+\doxysection{Work\+Task.\+hpp}
+\hypertarget{_work_task_8hpp_source}{}\label{_work_task_8hpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ WORK\_TASK\_HPP}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ WORK\_TASK\_HPP}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}Task.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_work_task_ac0eaf379ed3e624c9ad10971b32febbc}{WorkTask}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_task_a7c37a4dd66b39f1168b7f4df05eeeb69}{Task}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ \ \ \ \ std::string\ assignedBy;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{class_work_task_ac04c765cdda4576c9c38d3ea7150ac6b}{FILE\_PATH}};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_work_task_ac0eaf379ed3e624c9ad10971b32febbc}{WorkTask}}()}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_task_a7c37a4dd66b39f1168b7f4df05eeeb69}{Task}}(),\ assignedBy(\textcolor{stringliteral}{"{}"{}})\ \{\}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{class_work_task_a9ef8efd7fd1b838f2efda51e05d6dc3b}{WorkTask}}(\textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}},}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}},}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}},}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}},}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ assignedBy)}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{class_task_a7c37a4dd66b39f1168b7f4df05eeeb69}{Task}}(\mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}},\ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}},\ \mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}},\ \mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}}),\ assignedBy(assignedBy)\ \{\}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_work_task_a6d4bdb0cec66af80d2125e5253f04f0b}{display}}()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Work\ Task:\(\backslash\)n"{}};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ Description:\ "{}}\ <<\ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ Assignee:\ "{}}\ <<\ assignedBy\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ When\ To\ Do:\ "{}}\ <<\ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ Deadline:\ "{}}\ <<\ \mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\ \ Priority:\ "{}}\ <<\ \mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_work_task_acf5e878cd3ebee9033f700072c589818}{saveToFile}}(std::ofstream\&\ file)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (file.is\_open())\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}}\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ \mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}}\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ \mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}}\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ <<\ assignedBy\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_work_task_ab6bc82bd8780fced7f77f4bc72784c92}{loadFromStream}}(std::istringstream\&\ stream)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ std::getline(stream,\ assignedBy,\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ std::getline(stream,\ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}},\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ std::getline(stream,\ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}},\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ std::getline(stream,\ \mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}},\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ std::getline(stream,\ \mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}},\ \textcolor{charliteral}{','});}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ !(}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ assignedBy.empty()\ ||\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}.empty()\ ||\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}}.empty()\ ||\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}}.empty()\ ||\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}}.empty());}
+\DoxyCodeLine{00095\ \ \ \ \ \}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00102\ \ \ \ \ std::string\ \mbox{\hyperlink{class_work_task_a80c5b31cbf4ca578792ac3d123cd523e}{toFileString}}()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ assignedBy\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ \mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\_to\_do}}\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ \mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}}\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ \mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}}\ +\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00104\ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ getAssignedBy()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ assignedBy;}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{void}\ setAssignedBy(\textcolor{keyword}{const}\ std::string\&\ newAssignedBy)\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ assignedBy\ =\ newAssignedBy;}
+\DoxyCodeLine{00112\ \ \ \ \ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keyword}{friend}\ std::ostream\&\ \mbox{\hyperlink{class_work_task_a128cf236299a3a5b695fa03825f77037}{operator<<}}(std::ostream\&\ os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_work_task_ac0eaf379ed3e624c9ad10971b32febbc}{WorkTask}}\&\ task)\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}\ \ Assignee:\ "{}}\ <<\ task.getAssignedBy()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}\ \ Description:\ "{}}\ <<\ task.getDescription()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}\ \ Deadline:\ "{}}\ <<\ task.getDeadline()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ os\ <<\ \textcolor{stringliteral}{"{}\ \ Priority:\ "{}}\ <<\ task.getPriority()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \};}
+\DoxyCodeLine{00131\ \textcolor{keyword}{const}\ std::string\ \mbox{\hyperlink{class_work_task_ac04c765cdda4576c9c38d3ea7150ac6b}{WorkTask::FILE\_PATH}}\ =\ \textcolor{stringliteral}{"{}work.txt"{}};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

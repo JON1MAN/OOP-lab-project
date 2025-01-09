@@ -1,0 +1,203 @@
+\doxysection{Task Class Reference}
+\hypertarget{class_task}{}\label{class_task}\index{Task@{Task}}
+
+
+Abstract base class representing a general task with a description, when-\/to-\/do date, deadline, and priority.  
+
+
+
+
+{\ttfamily \#include $<$Task.\+hpp$>$}
+
+Inheritance diagram for Task\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_task}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_task_a7c37a4dd66b39f1168b7f4df05eeeb69}\label{class_task_a7c37a4dd66b39f1168b7f4df05eeeb69} 
+{\bfseries Task} ()=default
+\begin{DoxyCompactList}\small\item\em Default constructor for creating an empty task. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_task_a969d678d9bbeb66bf4670ddb71c4bc8b}{Task}} (const std\+::string \&\mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}, const std\+::string \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\+\_\+to\+\_\+do}})
+\begin{DoxyCompactList}\small\item\em Constructor for creating a task with description and when-\/to-\/do date. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_task_a94ade09f4d3f9df3684646e155743180}{Task}} (const std\+::string \&\mbox{\hyperlink{class_task_a14f67f96a806a46958b47f04a0a7550d}{description}}, const std\+::string \mbox{\hyperlink{class_task_a51962d591f8736bb9dc597c2762c35a0}{when\+\_\+to\+\_\+do}}, const std\+::string \&\mbox{\hyperlink{class_task_a2975f728def735be49efec0d0166c498}{deadline}}, const std\+::string \&\mbox{\hyperlink{class_task_a3d5d314bc6373609c61824fdc1bd1422}{priority}})
+\begin{DoxyCompactList}\small\item\em Constructor for creating a task with description, when-\/to-\/do date, deadline, and priority. \end{DoxyCompactList}\item 
+\Hypertarget{class_task_a7bff79cc05fa4511c72048d33591503b}\label{class_task_a7bff79cc05fa4511c72048d33591503b} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Task} ()
+\begin{DoxyCompactList}\small\item\em Virtual destructor for cleaning up derived classes. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_task_af44de279e920f0a26ef09897c65016c7}{display}} () const =0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to display task details. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_task_a49e65ce094ae0ffa66b32b10c10a0c4f}{save\+To\+File}} (std\+::ofstream \&file) const =0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to save task data to a file. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{class_task_a7953817ca4baf59276c1086cf6013c6b}{load\+From\+Stream}} (std\+::istringstream \&ss)=0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to load task data from a stream. \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{class_task_abc54b829b0faed6d37d4dbe340d6c490}{to\+File\+String}} () const =0
+\begin{DoxyCompactList}\small\item\em Pure virtual method to convert task data to a string suitable for file storage. \end{DoxyCompactList}\item 
+\Hypertarget{class_task_aee181400e7ff5f25762ba7140d33f941}\label{class_task_aee181400e7ff5f25762ba7140d33f941} 
+const std\+::string \& {\bfseries get\+Description} () const
+\item 
+\Hypertarget{class_task_a30bd2ac3893481a70b04c86c43afcf8a}\label{class_task_a30bd2ac3893481a70b04c86c43afcf8a} 
+std\+::string {\bfseries get\+When\+To\+Do} () const
+\item 
+\Hypertarget{class_task_a96c6f5b8058e370183521d5772825052}\label{class_task_a96c6f5b8058e370183521d5772825052} 
+const std\+::string \& {\bfseries get\+Deadline} () const
+\item 
+\Hypertarget{class_task_a084499fcd93daaf13f7f33d00622bf77}\label{class_task_a084499fcd93daaf13f7f33d00622bf77} 
+const std\+::string \& {\bfseries get\+Priority} () const
+\item 
+\Hypertarget{class_task_aed251b50df62e4fe089604a74e6353bb}\label{class_task_aed251b50df62e4fe089604a74e6353bb} 
+void {\bfseries set\+Description} (const std\+::string \&new\+Description)
+\item 
+\Hypertarget{class_task_a976864a9166690b1d42c97e0bc62c02b}\label{class_task_a976864a9166690b1d42c97e0bc62c02b} 
+void {\bfseries set\+When\+To\+Do} (const std\+::string \&new\+When\+To\+Do)
+\item 
+\Hypertarget{class_task_abf38e7b5b6f15c2058daa0894998ae76}\label{class_task_abf38e7b5b6f15c2058daa0894998ae76} 
+void {\bfseries set\+Deadline} (const std\+::string \&new\+Deadline)
+\item 
+\Hypertarget{class_task_ac4b4239c5f5c988e44758e48742d6462}\label{class_task_ac4b4239c5f5c988e44758e48742d6462} 
+void {\bfseries set\+Priority} (const std\+::string \&new\+Priority)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_task_a14f67f96a806a46958b47f04a0a7550d}\label{class_task_a14f67f96a806a46958b47f04a0a7550d} 
+std\+::string {\bfseries description}
+\begin{DoxyCompactList}\small\item\em The description of the task. \end{DoxyCompactList}\item 
+\Hypertarget{class_task_a51962d591f8736bb9dc597c2762c35a0}\label{class_task_a51962d591f8736bb9dc597c2762c35a0} 
+std\+::string {\bfseries when\+\_\+to\+\_\+do}
+\begin{DoxyCompactList}\small\item\em The date when the task should be done (DD.\+MM.\+YYYY). \end{DoxyCompactList}\item 
+\Hypertarget{class_task_a2975f728def735be49efec0d0166c498}\label{class_task_a2975f728def735be49efec0d0166c498} 
+std\+::string {\bfseries deadline}
+\begin{DoxyCompactList}\small\item\em The deadline for the task (DD.\+MM.\+YYYY). \end{DoxyCompactList}\item 
+\Hypertarget{class_task_a3d5d314bc6373609c61824fdc1bd1422}\label{class_task_a3d5d314bc6373609c61824fdc1bd1422} 
+std\+::string {\bfseries priority}
+\begin{DoxyCompactList}\small\item\em The priority of the task (low, medium, high). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract base class representing a general task with a description, when-\/to-\/do date, deadline, and priority. 
+
+This class provides a blueprint for different types of tasks (e.\+g., study, work, life) that share common properties such as description, when-\/to-\/do date, deadline, and priority. It also includes methods for displaying, saving, and loading tasks, as well as converting them to file-\/friendly formats. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_task_a969d678d9bbeb66bf4670ddb71c4bc8b}\index{Task@{Task}!Task@{Task}}
+\index{Task@{Task}!Task@{Task}}
+\doxysubsubsection{\texorpdfstring{Task()}{Task()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_task_a969d678d9bbeb66bf4670ddb71c4bc8b} 
+Task\+::\+Task (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description}{, }\item[{const std\+::string}]{when\+\_\+to\+\_\+do}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for creating a task with description and when-\/to-\/do date. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em description} & The description of the task. \\
+\hline
+{\em when\+\_\+to\+\_\+do} & The date when the task should be done (DD.\+MM.\+YYYY). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_task_a94ade09f4d3f9df3684646e155743180}\index{Task@{Task}!Task@{Task}}
+\index{Task@{Task}!Task@{Task}}
+\doxysubsubsection{\texorpdfstring{Task()}{Task()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_task_a94ade09f4d3f9df3684646e155743180} 
+Task\+::\+Task (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{description}{, }\item[{const std\+::string}]{when\+\_\+to\+\_\+do}{, }\item[{const std\+::string \&}]{deadline}{, }\item[{const std\+::string \&}]{priority}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor for creating a task with description, when-\/to-\/do date, deadline, and priority. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em description} & The description of the task. \\
+\hline
+{\em when\+\_\+to\+\_\+do} & The date when the task should be done (DD.\+MM.\+YYYY). \\
+\hline
+{\em deadline} & The deadline for the task (DD.\+MM.\+YYYY). \\
+\hline
+{\em priority} & The priority of the task (low, medium, high). \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_task_af44de279e920f0a26ef09897c65016c7}\index{Task@{Task}!display@{display}}
+\index{display@{display}!Task@{Task}}
+\doxysubsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily \label{class_task_af44de279e920f0a26ef09897c65016c7} 
+virtual void Task\+::display (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to display task details. 
+
+This method must be implemented by derived classes. 
+
+Implemented in \mbox{\hyperlink{class_life_task_a51a7dc98153fad5ee00e4fc817364521}{Life\+Task}}, \mbox{\hyperlink{class_study_task_a751991835554308c25d4d7b71998d028}{Study\+Task}}, and \mbox{\hyperlink{class_work_task_a6d4bdb0cec66af80d2125e5253f04f0b}{Work\+Task}}.
+
+\Hypertarget{class_task_a7953817ca4baf59276c1086cf6013c6b}\index{Task@{Task}!loadFromStream@{loadFromStream}}
+\index{loadFromStream@{loadFromStream}!Task@{Task}}
+\doxysubsubsection{\texorpdfstring{loadFromStream()}{loadFromStream()}}
+{\footnotesize\ttfamily \label{class_task_a7953817ca4baf59276c1086cf6013c6b} 
+virtual bool Task\+::load\+From\+Stream (\begin{DoxyParamCaption}\item[{std\+::istringstream \&}]{ss}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to load task data from a stream. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ss} & The input stream from which to load the task data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the task was successfully loaded, false otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_life_task_a0a397aae5f5510bed75d01e7718d6050}{Life\+Task}}, \mbox{\hyperlink{class_study_task_aa77f14326a4b954fd4b785758383925d}{Study\+Task}}, and \mbox{\hyperlink{class_work_task_ab6bc82bd8780fced7f77f4bc72784c92}{Work\+Task}}.
+
+\Hypertarget{class_task_a49e65ce094ae0ffa66b32b10c10a0c4f}\index{Task@{Task}!saveToFile@{saveToFile}}
+\index{saveToFile@{saveToFile}!Task@{Task}}
+\doxysubsubsection{\texorpdfstring{saveToFile()}{saveToFile()}}
+{\footnotesize\ttfamily \label{class_task_a49e65ce094ae0ffa66b32b10c10a0c4f} 
+virtual void Task\+::save\+To\+File (\begin{DoxyParamCaption}\item[{std\+::ofstream \&}]{file}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to save task data to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & The output file stream where task data should be saved. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_life_task_a0a4ab982fea0f8bef49342eaccbbaca1}{Life\+Task}}, \mbox{\hyperlink{class_study_task_a79a31d3fe00eee8193d20715a087aa42}{Study\+Task}}, and \mbox{\hyperlink{class_work_task_acf5e878cd3ebee9033f700072c589818}{Work\+Task}}.
+
+\Hypertarget{class_task_abc54b829b0faed6d37d4dbe340d6c490}\index{Task@{Task}!toFileString@{toFileString}}
+\index{toFileString@{toFileString}!Task@{Task}}
+\doxysubsubsection{\texorpdfstring{toFileString()}{toFileString()}}
+{\footnotesize\ttfamily \label{class_task_abc54b829b0faed6d37d4dbe340d6c490} 
+virtual std\+::string Task\+::to\+File\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Pure virtual method to convert task data to a string suitable for file storage. 
+
+\begin{DoxyReturn}{Returns}
+A string representing the task\textquotesingle{}s data in a file-\/compatible format. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_life_task_aeb8db8daf3a7a40dc1883bcdafc7d397}{Life\+Task}}, \mbox{\hyperlink{class_study_task_a1487a12e9c70e9e0c17215903e77be47}{Study\+Task}}, and \mbox{\hyperlink{class_work_task_a80c5b31cbf4ca578792ac3d123cd523e}{Work\+Task}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Task.\+hpp\end{DoxyCompactItemize}
