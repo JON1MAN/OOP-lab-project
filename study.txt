@@ -1,4 +1,4 @@
-math, Read, 08.01.2025, 09.01.2025, high
-MATH, NEW TASK, 09.01.2025, 09.01.2025, low
+math, Read, 09.01.2025, 09.01.2025, high
+MATH, NEW TASK, 10.01.2025, 09.01.2025, low
 FIZYKA, 1, 10.01.2025, 11.01.2025, high
-Chenistry, Chemistry, 09.01.2025, 10.01.2025, high
+Chenistry, Chemistry, 10.01.2025, 10.01.2025, high

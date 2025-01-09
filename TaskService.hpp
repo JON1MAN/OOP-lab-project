@@ -10,6 +10,37 @@
 
 class TaskService {
 public:
+
+        /**
+     * @brief Main loop of the To-Do List application.
+     *
+     * This function runs the main application loop, allowing the user to interact
+     * with the To-Do List application through a set of menu options. The user can
+     * view tasks for the current day, add new tasks, mark tasks as done, reschedule
+     * unfinished tasks, or exit the application.
+     *
+     * @details The function operates in an infinite loop, presenting the user with
+     * a menu of options. The user selects an option by entering a number corresponding
+     * to the desired action:
+     * - **1**: Add a new task for today.
+     * - **2**: Add a task with a custom date.
+     * - **3**: Mark a task as completed.
+     * - **4**: Reschedule unfinished tasks from today to the next day.
+     * - **5**: Exit the application.
+     *
+     * Depending on the user's choice, the function invokes corresponding helper
+     * functions to perform the requested actions.
+     *
+     * - **Invalid Input Handling**: If the user enters an invalid choice, a message
+     *   is displayed, and the menu is shown again.
+     * - **Exit**: Choosing option 5 exits the loop and terminates the application.
+     *
+     * @see loadAndDisplayTasksForToday()
+     * @see addTaskForToday()
+     * @see runTaskCreation()
+     * @see markTaskAsDone()
+     * @see rescheduleUnfinishedTasks()
+     */
     void runApplication() {
         int choice = 0;
 
@@ -19,7 +50,8 @@ public:
             std::cout << "1 - Add task for today" << std::endl;
             std::cout << "2 - Add task (custom date)" << std::endl;
             std::cout << "3 - Mark task as done" << std::endl;
-            std::cout << "4 - Exit" << std::endl;
+            std::cout << "4 - Reschedule tasks from today to next day" << std::endl;
+            std::cout << "5 - Exit" << std::endl;
 
             std::cout << "Choose an option: ";
             std::cin >> choice;
@@ -35,7 +67,9 @@ public:
                     markTaskAsDone();
                     break;
                 case 4:
-                    //rescheduleUnfinishedTasks();
+                    rescheduleUnfinishedTasks();
+                    break;
+                case 5:
                     std::cout << "Exiting application..." << std::endl;
                     return;
                 default:
@@ -100,20 +134,16 @@ private:
         return (start == std::string::npos) ? "" : str.substr(start);
     }
 
-    int getRandomColor() {
-        return 30 + rand() % 8 + (rand() % 2) * 60; // Random color code between 31 and 37 (red to white)
-    }
-
     // Function to reset color after printing
     void resetColor() {
-        std::cout << "\033[0m"; // Reset color
+        std::cout << "\033[0m";
     }
 
-    template <typename TaskType>
-    void displayTasks(const std::string& title, const std::vector<TaskType>& tasks, int color) {
-        std::cout << "\033[" << color << "m"; // Set color
+    template <typename Task>
+    void displayTasks(const std::string& title, const std::vector<Task>& tasks, int color) {
+        std::cout << "\033[" << color << "m";
         std::cout << "----- " << title << " -----\n\n";
-        resetColor(); // Reset to default color
+        resetColor();
 
         if (tasks.empty()) {
             std::cout << "No tasks.\n";
@@ -221,12 +251,14 @@ private:
         rescheduleTasks<StudyTask>(StudyTask::FILE_PATH, today, nextDay);
         rescheduleTasks<LifeTask>(LifeTask::FILE_PATH, today, nextDay);
         rescheduleTasks<WorkTask>(WorkTask::FILE_PATH, today, nextDay);
+
+        std::cout << "Rescheduled tasks for tomorrow!" << std::endl;
     }
 
     std::string getNextDay(const std::string& today) {
         tm date = {};
         strptime(today.c_str(), "%d.%m.%Y", &date);
-        time_t t = mktime(&date) + 86400; // Add 24 hours
+        time_t t = mktime(&date) + 86400;
         tm* nextDay = localtime(&t);
 
         char buf[11];
@@ -234,17 +266,22 @@ private:
         return std::string(buf);
     }
 
-    template <typename TaskType>
+    template <typename T>
     void rescheduleTasks(const std::string& filePath, const std::string& today, const std::string& nextDay) {
-        std::ifstream file(filePath);
-        if (!file) return;
+        static_assert(std::is_base_of<Task, T>::value, "T must derive from Task");
 
-        std::vector<TaskType> tasks;
+        std::ifstream file(filePath);
+        std::vector<T> tasks;
+
+        if (!file.is_open()) {
+            std::cerr << "Error: Could not open file: " << filePath << "\n";
+        }
+
         std::string line;
         while (std::getline(file, line)) {
-            TaskType task;
+            T task;
             std::istringstream ss(line);
-            if (task.loadFromStream(ss) && task.getWhenToDo() == today) {
+            if (task.loadFromStream(ss) && trim_left(task.getWhenToDo()) == today) {
                 task.setWhenToDo(nextDay);
             }
             tasks.push_back(task);
@@ -253,7 +290,7 @@ private:
 
         std::ofstream outFile(filePath);
         for (const auto& task : tasks) {
-            outFile << task.toFileString() << "\n";
+            outFile << task.toFileString();
         }
     }
 
@@ -461,22 +498,6 @@ private:
         } else {
             std::cerr << "Error: Unable to open file for writing.\n";
         }
-    }
-
-    void collectCommonTaskDetails(std::string& description, std::string& when_to_do, std::string& deadline, std::string& priority) {
-        std::cin.ignore();
-
-        std::cout << "Provide description: ";
-        std::getline(std::cin, description);
-
-        std::cout << "When do you want to do it? (DD.MM.YYYY): ";
-        std::getline(std::cin, when_to_do);
-
-        std::cout << "What is your deadline? (DD.MM.YYYY): ";
-        std::getline(std::cin, deadline);
-
-        std::cout << "What is the priority? (low, medium, high): ";
-        std::getline(std::cin, priority);
     }
 
 };
