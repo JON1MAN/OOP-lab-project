@@ -11,10 +11,10 @@
 class TaskService {
 public:
     void runApplication() {
-        loadAndDisplayTasksForToday();
         int choice = 0;
 
         while (true) {
+            loadAndDisplayTasksForToday();
             std::cout << "\nOptions:" << std::endl;
             std::cout << "1 - Add task for today" << std::endl;
             std::cout << "2 - Add task (custom date)" << std::endl;
@@ -35,7 +35,7 @@ public:
                     markTaskAsDone();
                     break;
                 case 4:
-                    rescheduleUnfinishedTasks();
+                    //rescheduleUnfinishedTasks();
                     std::cout << "Exiting application..." << std::endl;
                     return;
                 default:
@@ -63,38 +63,58 @@ private:
         std::vector<LifeTask> lifeTasks = loadTasks<LifeTask>(LifeTask::FILE_PATH, today);
         std::vector<WorkTask> workTasks = loadTasks<WorkTask>(WorkTask::FILE_PATH, today);
 
-        displayTasks("Study Tasks", studyTasks);
-        displayTasks("Life Tasks", lifeTasks);
-        displayTasks("Work Tasks", workTasks);
+        displayTasks("Study Tasks", studyTasks, 31);
+        displayTasks("Life Tasks", lifeTasks, 33);
+        displayTasks("Work Tasks", workTasks, 32);
     }
 
     template <typename T>
-        std::vector<T> loadTasks(const std::string& filePath, const std::string& date) {
-        std::ifstream file(filePath);
-        std::vector<T> tasks;
+    std::vector<T> loadTasks(const std::string& filePath, const std::string& date) {
+            static_assert(std::is_base_of<Task, T>::value, "T must derive from Task");
 
-        if (!file.is_open()) {
-            std::cerr << "Error: Could not open file: " << filePath << "\n";
-            return tasks;
-        }
+            std::ifstream file(filePath);
+            std::vector<T> tasks;
 
-        std::string line;
-        while (std::getline(file, line)) {
-            T task;
-            std::istringstream ss(line);
-
-            if (task.loadFromStream(ss) && task.getWhenToDo() == date) {
-                tasks.push_back(task);
+            if (!file.is_open()) {
+                std::cerr << "Error: Could not open file: " << filePath << "\n";
+                return tasks;
             }
+
+            std::string line;
+            
+            while (std::getline(file, line)) {
+                T task;
+                std::istringstream ss(line);
+                
+                if (task.loadFromStream(ss) && trim_left(task.getWhenToDo()) == getTodayDate()) {
+                    tasks.push_back(task);
+                }
         }
 
         return tasks;
     }
 
+    //method to trim string at left
+    std::string trim_left(const std::string& str) {
+        size_t start = str.find_first_not_of(' ');
+        return (start == std::string::npos) ? "" : str.substr(start);
+    }
+
+    int getRandomColor() {
+        return 30 + rand() % 8 + (rand() % 2) * 60; // Random color code between 31 and 37 (red to white)
+    }
+
+    // Function to reset color after printing
+    void resetColor() {
+        std::cout << "\033[0m"; // Reset color
+    }
 
     template <typename TaskType>
-    void displayTasks(const std::string& title, const std::vector<TaskType>& tasks) {
-        std::cout << "----- " << title << " -----\n";
+    void displayTasks(const std::string& title, const std::vector<TaskType>& tasks, int color) {
+        std::cout << "\033[" << color << "m"; // Set color
+        std::cout << "----- " << title << " -----\n\n";
+        resetColor(); // Reset to default color
+
         if (tasks.empty()) {
             std::cout << "No tasks.\n";
         } else {
@@ -126,14 +146,15 @@ private:
     }
 
     int chooseTaskType() {
-        int type;
-        while (true) {
+        int type = 0;
+        while (type < 1 || type > 3) {
             std::cout << "What type of task?\n";
             std::cout << "1 - Study\n2 - Life\n3 - Work\n";
             std::cout << "Choose an option: ";
             std::cin >> type;
-            if (type >= 1 && type <= 3) continue;;
-            std::cout << "Invalid choice. Please select 1, 2, or 3.\n";
+            if (type < 1 && type > 3) {
+                std::cout << "Invalid choice. Please select 1, 2, or 3.\n";
+            }
         }
         return type;
     }
@@ -267,6 +288,8 @@ private:
                 case 3:
                     createWorkTask();
                     break;
+                case 4:
+                    return;
             }
         }
     }
@@ -274,96 +297,171 @@ private:
     void createStudyTask() {
         std::string description, when_to_do, deadline, priority, subject;
 
-        collectCommonTaskDetails(description, when_to_do, deadline, priority);
-        std::cout << "What subject? ";
+        std::cout << "Provide description: ";
         std::cin.ignore();
+        std::getline(std::cin, description);
+
+        std::cout << "When do you want to do it? (DD.MM.YYYY): ";
+        std::getline(std::cin, when_to_do);
+
+        std::cout << "What is your deadline? (DD.MM.YYYY): ";
+        std::getline(std::cin, deadline);
+
+        std::cout << "What is the priority? (low, medium, high): ";
+        std::getline(std::cin, priority);
+
+        std::cout << "What subject? ";
         std::getline(std::cin, subject);
 
         StudyTask studyTask(description, when_to_do, deadline, priority, subject);
-        saveTaskToFile(studyTask, StudyTask::FILE_PATH);
+        
+        std::ofstream outFile(StudyTask::FILE_PATH, std::ios::app);
+        if (outFile.is_open()) {
+            outFile << studyTask.toFileString();
+            outFile.close();
+            std::cout << "Study task added to file for: " << when_to_do << "\n";
+        } else {
+            std::cerr << "Error: Unable to open file for writing.\n";
+        }
     }
 
     void createWorkTask() {
         std::string description, when_to_do, deadline, priority, assignedBy;
 
-        collectCommonTaskDetails(description, when_to_do, deadline, priority);
-        std::cout << "Who is the assignee? ";
+        std::cout << "Provide description: ";
         std::cin.ignore();
+        std::getline(std::cin, description);
+
+        std::cout << "When do you want to do it? (DD.MM.YYYY): ";
+        std::getline(std::cin, when_to_do);
+
+        std::cout << "What is your deadline? (DD.MM.YYYY): ";
+        std::getline(std::cin, deadline);
+
+        std::cout << "What is the priority? (low, medium, high): ";
+        std::getline(std::cin, priority);
+
+        std::cout << "Who is the assignee? ";
         std::getline(std::cin, assignedBy);
 
         WorkTask workTask(description, when_to_do, deadline, priority, assignedBy);
-        saveTaskToFile(workTask, WorkTask::FILE_PATH);
+        
+        std::ofstream outFile(WorkTask::FILE_PATH, std::ios::app);
+        if (outFile.is_open()) {
+            outFile << workTask.toFileString();
+            outFile.close();
+            std::cout << "Work task added to file for : " << when_to_do << "\n";
+        } else {
+            std::cerr << "Error: Unable to open file for writing.\n";
+        }
     }
 
     void createLifeTask() {
         std::string description, when_to_do, deadline, priority;
 
-        collectCommonTaskDetails(description, when_to_do, deadline, priority);
+        std::cout << "Provide description: ";
+        std::cin.ignore();
+        std::getline(std::cin, description);
+
+        std::cout << "When do you want to do it? (DD.MM.YYYY): ";
+        std::getline(std::cin, when_to_do);
+
+        std::cout << "What is your deadline? (DD.MM.YYYY): ";
+        std::getline(std::cin, deadline);
+
+        std::cout << "What is the priority? (low, medium, high): ";
+        std::getline(std::cin, priority);
 
         LifeTask lifeTask(description, when_to_do, deadline, priority);
-        saveTaskToFile(lifeTask, LifeTask::FILE_PATH);
+
+        std::ofstream outFile(LifeTask::FILE_PATH, std::ios::app);
+        if (outFile.is_open()) {
+            outFile << lifeTask.toFileString();
+            outFile.close();
+            std::cout << "Life task added to file for: " << when_to_do << "\n";
+        } else {
+            std::cerr << "Error: Unable to open file for writing.\n";
+        }
     }
 
     void createStudyTask(const std::string& when_to_do) {
-    std::string description, deadline, priority, subject;
+        std::string description, deadline, priority, subject;
 
-    std::cout << "Enter task description: ";
-    std::cin.ignore();
-    std::getline(std::cin, description);
+        std::cout << "Enter task description: ";
+        std::cin.ignore();
+        std::getline(std::cin, description);
 
-    std::cout << "Enter deadline date (DD.MM.YYYY): ";
-    std::getline(std::cin, deadline);
+        std::cout << "Enter deadline date (DD.MM.YYYY): ";
+        std::getline(std::cin, deadline);
 
-    std::cout << "Enter priority (low, medium, high): ";
-    std::getline(std::cin, priority);
+        std::cout << "Enter priority (low, medium, high): ";
+        std::getline(std::cin, priority);
 
-    std::cout << "What subject? ";
-    std::getline(std::cin, subject);
+        std::cout << "What subject? ";
+        std::getline(std::cin, subject);
 
-    StudyTask studyTask(description, when_to_do, deadline, priority, subject);
-    saveTaskToFile(studyTask, StudyTask::FILE_PATH);
-    std::cout << "Study task added for today: " << when_to_do << "\n";
-}
+        StudyTask studyTask(description, when_to_do, deadline, priority, subject);
+        std::ofstream outFile(StudyTask::FILE_PATH, std::ios::app);
+        if (outFile.is_open()) {
+            outFile << studyTask.toFileString();
+            outFile.close();
+            std::cout << "Study task added to file for today: " << when_to_do << "\n";
+        } else {
+            std::cerr << "Error: Unable to open file for writing.\n";
+        }
+    }
 
-void createLifeTask(const std::string& when_to_do) {
-    std::string description, deadline, priority;
+    void createLifeTask(const std::string& when_to_do) {
+        std::string description, deadline, priority;
 
-    std::cout << "Enter task description: ";
-    std::cin.ignore();
-    std::getline(std::cin, description);
+        std::cout << "Enter task description: ";
+        std::cin.ignore();
+        std::getline(std::cin, description);
 
-    std::cout << "Enter deadline date (DD.MM.YYYY): ";
-    std::getline(std::cin, deadline);
+        std::cout << "Enter deadline date (DD.MM.YYYY): ";
+        std::getline(std::cin, deadline);
 
-    std::cout << "Enter priority (low, medium, high): ";
-    std::getline(std::cin, priority);
+        std::cout << "Enter priority (low, medium, high): ";
+        std::getline(std::cin, priority);
 
-    LifeTask lifeTask(description, when_to_do, deadline, priority);
-    saveTaskToFile(lifeTask, LifeTask::FILE_PATH);
-    std::cout << "Life task added for today: " << when_to_do << "\n";
-}
+        LifeTask lifeTask(description, when_to_do, deadline, priority);
+        std::ofstream outFile(LifeTask::FILE_PATH, std::ios::app);
+        if (outFile.is_open()) {
+            outFile << lifeTask.toFileString();
+            outFile.close();
+            std::cout << "Life task added to file for today: " << when_to_do << "\n";
+        } else {
+            std::cerr << "Error: Unable to open file for writing.\n";
+        }
+    }
 
-void createWorkTask(const std::string& when_to_do) {
-    std::string description, deadline, priority, assignedBy;
+    void createWorkTask(const std::string& when_to_do) {
+        std::string description, deadline, priority, assignedBy;
 
-    std::cout << "Enter task description: ";
-    std::cin.ignore();
-    std::getline(std::cin, description);
+        std::cout << "Enter task description: ";
+        std::cin.ignore();
+        std::getline(std::cin, description);
 
-    std::cout << "Enter deadline date (DD.MM.YYYY): ";
-    std::getline(std::cin, deadline);
+        std::cout << "Enter deadline date (DD.MM.YYYY): ";
+        std::getline(std::cin, deadline);
 
-    std::cout << "Enter priority (low, medium, high): ";
-    std::getline(std::cin, priority);
+        std::cout << "Enter priority (low, medium, high): ";
+        std::getline(std::cin, priority);
 
-    std::cout << "Who is the assignee? ";
-    std::getline(std::cin, assignedBy);
+        std::cout << "Who is the assignee? ";
+        std::getline(std::cin, assignedBy);
 
-    WorkTask workTask(description, when_to_do, deadline, priority, assignedBy);
-    saveTaskToFile(workTask, WorkTask::FILE_PATH);
-    std::cout << "Work task added for today: " << when_to_do << "\n";
-}
+        WorkTask workTask(description, when_to_do, deadline, priority, assignedBy);
 
+        std::ofstream outFile(WorkTask::FILE_PATH, std::ios::app);
+        if (outFile.is_open()) {
+            outFile << workTask.toFileString();
+            outFile.close();
+            std::cout << "Work task added to file for today: " << when_to_do << "\n";
+        } else {
+            std::cerr << "Error: Unable to open file for writing.\n";
+        }
+    }
 
     void collectCommonTaskDetails(std::string& description, std::string& when_to_do, std::string& deadline, std::string& priority) {
         std::cin.ignore();
@@ -377,21 +475,10 @@ void createWorkTask(const std::string& when_to_do) {
         std::cout << "What is your deadline? (DD.MM.YYYY): ";
         std::getline(std::cin, deadline);
 
-        std::cout << "What is the priority? (from 0 to 10): ";
+        std::cout << "What is the priority? (low, medium, high): ";
         std::getline(std::cin, priority);
     }
 
-    template <typename TaskType>
-    void saveTaskToFile(const TaskType& task, const std::string& filePath) {
-        std::ofstream file(filePath, std::ios::app);
-        if (!file) {
-            std::cerr << "Failed to open file: " << filePath << std::endl;
-            return;
-        }
-        task.saveToFile(file);
-        file.close();
-        std::cout << "Task saved successfully to " << filePath << "!" << std::endl;
-    }
 };
 
 #endif
