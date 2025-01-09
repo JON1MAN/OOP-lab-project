@@ -78,7 +78,7 @@ public:
 
     virtual void saveToFile(std::ofstream& file) const = 0;
 
-    virtual bool loadFromStream(std::istream& stream) = 0;
+    virtual bool loadFromStream(std::istringstream& ss) = 0;
 
     virtual std::string toFileString() const = 0;
 

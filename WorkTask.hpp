@@ -37,24 +37,24 @@ public:
 
     void saveToFile(std::ofstream& file) const override {
         if (file.is_open()) {
-            file << description << "," << when_to_do << "," << deadline << "," << priority << "," << assignedBy << "\n";
+            file << description << ", " << when_to_do << ", " << deadline << ", " << priority << ", " << assignedBy << "\n";
         }
     }
 
-    bool loadFromStream(std::istream& stream) override {
-        if (std::getline(stream, assignedBy) &&
-            std::getline(stream, description) &&
-            std::getline(stream, when_to_do) &&
-            std::getline(stream, deadline) &&
-            std::getline(stream, priority)) {
-            return !description.empty();
-        }
-        return false;
+    bool loadFromStream(std::istringstream& stream) override {
+        std::getline(stream, assignedBy, ',');
+        std::getline(stream, description, ',');
+        std::getline(stream, when_to_do, ',');
+        std::getline(stream, deadline, ',');
+        std::getline(stream, priority, ',');
+            
+        // Trim spaces if needed (implement a helper function for trimming).
+        return !(assignedBy.empty() || description.empty() || when_to_do.empty() || deadline.empty() || priority.empty());
     }
 
     // Method to generate a file-compatible string representation
     std::string toFileString() const override {
-        return assignedBy + "\n" + description + "\n" + when_to_do + "\n" + deadline + "\n" + priority;
+        return assignedBy + ", " + description + ", " + when_to_do + ", " + deadline + ", " + priority + "\n";
     }
 
     const std::string& getAssignedBy() const {
@@ -66,9 +66,8 @@ public:
     }
 
     friend std::ostream& operator<<(std::ostream& os, const WorkTask& task) {
-        os << "Work Task:\n";
+        os << "  Assignee: " << task.getAssignedBy() << "\n";
         os << "  Description: " << task.getDescription() << "\n";
-        os << "  When To Do: " << task.getWhenToDo() << "\n";
         os << "  Deadline: " << task.getDeadline() << "\n";
         os << "  Priority: " << task.getPriority() << "\n";
         return os;
@@ -76,6 +75,6 @@ public:
 
 };
 
-const std::string WorkTask::FILE_PATH = "work_tasks.txt";
+const std::string WorkTask::FILE_PATH = "work.txt";
 
 #endif

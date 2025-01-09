@@ -36,42 +36,34 @@ public:
 
     void saveToFile(std::ofstream& file) const override {
         if (file.is_open()) {
-            file << description << "," << when_to_do << ",";
-            if (!deadline.empty()) {
-                file << deadline << ",";
-            }
-            if (!priority.empty()) {
-                file << priority << ",";
-            }
-            file << "\n";
+            file << toFileString();
+            file.close();
         }
     }
 
-    bool loadFromStream(std::istream& stream) override {
-        if (std::getline(stream, description) &&
-            std::getline(stream, when_to_do) &&
-            std::getline(stream, deadline) &&
-            std::getline(stream, priority)) {
-            return !description.empty();
-        }
-        return false;
+    bool loadFromStream(std::istringstream& stream) override {
+        std::getline(stream, description, ',');
+        std::getline(stream, when_to_do, ',');
+        std::getline(stream, deadline, ',');
+        std::getline(stream, priority, ',');
+        
+        // Trim spaces if needed (implement a helper function for trimming).
+        return !(description.empty() || when_to_do.empty() || deadline.empty() || priority.empty());
     }
 
     // Method to generate a file-compatible string representation
     std::string toFileString() const override {
-        return description + "\n" + when_to_do + "\n" + deadline + "\n" + priority;
+        return  description + ", " + when_to_do + ", " + deadline + ", " + priority + "\n";
     }
 
         friend std::ostream& operator<<(std::ostream& os, const LifeTask& task) {
-        os << "Life Task:\n";
         os << "  Description: " << task.getDescription() << "\n";
-        os << "  When To Do: " << task.getWhenToDo() << "\n";
         os << "  Deadline: " << task.getDeadline() << "\n";
         os << "  Priority: " << task.getPriority() << "\n";
         return os;
     }
 };
 
-const std::string LifeTask::FILE_PATH = "life_tasks.txt";
+const std::string LifeTask::FILE_PATH = "life.txt";
 
 #endif

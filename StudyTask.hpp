@@ -37,29 +37,27 @@ public:
     // Override saveToFile method
     void saveToFile(std::ofstream& file) const override {
         if (file.is_open()) {
-            file << subject << "\n"
-                 << description << "\n"
-                 << when_to_do << "\n"
-                 << deadline << "\n"
-                 << priority << "\n";
+            file << toFileString();
+            file.close();
         }
     }
 
     // Method to load a task from an input stream
-    bool loadFromStream(std::istream& stream) override {
-        if (std::getline(stream, subject) &&
-            std::getline(stream, description) &&
-            std::getline(stream, when_to_do) &&
-            std::getline(stream, deadline) &&
-            std::getline(stream, priority)) {
-            return !description.empty();
-        }
-        return false;
+    bool loadFromStream(std::istringstream& stream) override {
+        // Assuming the line format: "math, Read, 08.01.2025, 09.01.2025, high"
+        std::getline(stream, subject, ',');
+        std::getline(stream, description, ',');
+        std::getline(stream, when_to_do, ',');
+        std::getline(stream, deadline, ',');
+        std::getline(stream, priority, ',');
+        
+        // Trim spaces if needed (implement a helper function for trimming).
+        return !(subject.empty() || description.empty() || when_to_do.empty() || deadline.empty() || priority.empty());
     }
 
     // Method to generate a file-compatible string representation
     std::string toFileString() const override {
-        return subject + "\n" + description + "\n" + when_to_do + "\n" + deadline + "\n" + priority;
+        return subject + ", " + description + ", " + when_to_do + ", " + deadline + ", " + priority + "\n";
     }
 
     const std::string& getSubject() const {
@@ -71,10 +69,8 @@ public:
     }
 
     friend std::ostream& operator<<(std::ostream& os, const StudyTask& task) {
-        os << "Study Task:\n";
-        os << "  Subject: " << task.subject << "\n";
+        os << "  Subject: " << task.getSubject() << "\n";
         os << "  Description: " << task.getDescription() << "\n";
-        os << "  When To Do: " << task.getWhenToDo() << "\n";
         os << "  Deadline: " << task.getDeadline() << "\n";
         os << "  Priority: " << task.getPriority() << "\n";
         return os;
@@ -82,6 +78,6 @@ public:
 };
 
 // File path definition
-const std::string StudyTask::FILE_PATH = "study_tasks.txt";
+const std::string StudyTask::FILE_PATH = "study.txt";
 
 #endif
